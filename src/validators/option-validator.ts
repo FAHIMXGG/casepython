@@ -1,11 +1,13 @@
+
+
 export const COLORS = [
     {
         label: 'Black', value: 'black', tw: 'zinc-900'
     },
     {
-        label: 'blue', value: 'blue', tw: 'blue-950'
+        label: 'Blue', value: 'blue', tw: 'blue-800'
     },
     {
-        label: 'rose', value: 'rose', tw: 'rose-950'
+        label: 'Rose', value: 'rose', tw: 'rose-900'
     },
 ] as const

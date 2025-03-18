@@ -6,7 +6,7 @@ import { cn, formatPrice } from "@/lib/utils";
 import NextImage from "next/image";
 import { Rnd } from "react-rnd";
 import { RadioGroup } from '@headlessui/react'
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { color } from "framer-motion";
 import { COLORS, FINISHES, MATERIALS, MODELS } from "@/validators/option-validator";
 import { Label } from "@/components/ui/label";
@@ -25,12 +25,15 @@ import { toast } from "sonner"
 // bg-[#FFFBE2] border-[#FFFBE2]
 
 
+
 interface DesignConfiguratorProps {
     configId: string;
     imageUrl: string;
     imageDimensions: { width: number; height: number }
+    time: string
 }
-const DesignConfigurator = ({ configId, imageUrl, imageDimensions }: DesignConfiguratorProps) => {
+const DesignConfigurator = ({ configId, imageUrl, imageDimensions, time }: DesignConfiguratorProps) => {
+
 
     const [options, setOptions] = useState<{
         color: (typeof COLORS)[number]
@@ -98,9 +101,9 @@ const DesignConfigurator = ({ configId, imageUrl, imageDimensions }: DesignConfi
     
           const base64 = canvas.toDataURL()
           const base64Data = base64.split(',')[1]
-          const currentTime = new Date().toLocaleTimeString();
+          //const currentTime = new Date().toLocaleTimeString();
           const blob = base64ToBlob(base64Data, 'image/png')
-          const file = new File([blob], `${currentTime}_filename.png`, { type: 'image/png' })
+          const file = new File([blob], `${time}_filename.png`, { type: 'image/png' })
     
           await startUpload([file], { configId })
         } catch (err) {

@@ -26,12 +26,12 @@ import { toast } from "sonner"
 
 
 interface DesignConfiguratorProps {
-    configID: string;
+    configId: string;
     imageUrl: string;
-    imageDimension: { width: number; height: number }
+    imageDimensions: { width: number; height: number }
 }
-const DesignConfigurator = ({ configID, imageUrl, imageDimension }: DesignConfiguratorProps) => {
-    
+const DesignConfigurator = ({ configId, imageUrl, imageDimensions }: DesignConfiguratorProps) => {
+
     const [options, setOptions] = useState<{
         color: (typeof COLORS)[number]
         model: (typeof MODELS.options)[number]
@@ -44,77 +44,83 @@ const DesignConfigurator = ({ configID, imageUrl, imageDimension }: DesignConfig
         finish: FINISHES.options[0],
     })
 
-    const [renderedDimensions, setRenderedDimensions] = useState({
-        width: imageDimension.width / 4,
-        height: imageDimension.height / 4,
-    })
-
-    const [renderedPosition, setRenderedPosition] = useState({
+    const [renderedDimension, setRenderedDimension] = useState({
+        width: imageDimensions.width / 4,
+        height: imageDimensions.height / 4,
+      })
+    
+      const [renderedPosition, setRenderedPosition] = useState({
         x: 150,
         y: 205,
-    })
+      })
 
     //console.log(renderedDimensions, renderedPosition)
     const phoneCaseRef = useRef<HTMLDivElement>(null)
     const containerRef = useRef<HTMLDivElement>(null)
 
-    const {startUpload} = useUploadThing('imageUploader')
+    const { startUpload } = useUploadThing('imageUploader')
 
-    async function saveConfiguration () {
+    async function saveConfiguration() {
         try {
-            const { left: caseLeft, top: caseTop, width, height  } = phoneCaseRef.current!.getBoundingClientRect()
-
-            const {left:containerLeft, top: containerTop, } = containerRef.current!.getBoundingClientRect()
-
-            const leftOffset = caseLeft - containerLeft
-            const topOffset = caseTop - containerTop
-
-            const actualX = renderedPosition.x - leftOffset
-            const actualY = renderedPosition.y - topOffset
-
-            const canvas = document.createElement('canvas')
-            canvas.width = width
-            canvas.height = height
-            const ctx = canvas.getContext('2d')
-
-            const userImage = new Image()
-            userImage.crossOrigin = 'anonymous'
-            userImage.src =imageUrl
-            await new Promise((resolve) => (userImage.onload = resolve))
-
-            ctx?.drawImage(
-                userImage,
-                actualX,
-                actualY,
-                renderedDimensions.width,
-                renderedDimensions.height
-            )
-
-            const base64 = canvas.toDataURL()
-            console.log(base64)
-            const base64Data = base64.split(',')[1]
-
-            const blob = base64ToBlob(base64Data, "image/png")
-            const file = new File([blob], 'filename.png', { type: 'image/png' })
-
-            await startUpload([file], {configId:configID})
-        } catch (error) {
-            toast("Error uploading image", {
-                description: (<p className="text-white font-bold text-center"> There was an error uploading your image. Please try again.</p>),
-                style: { backgroundColor: "red", color: "white" }
-            })
+          const {
+            left: caseLeft,
+            top: caseTop,
+            width,
+            height,
+          } = phoneCaseRef.current!.getBoundingClientRect()
+    
+          const { left: containerLeft, top: containerTop } =
+            containerRef.current!.getBoundingClientRect()
+    
+          const leftOffset = caseLeft - containerLeft
+          const topOffset = caseTop - containerTop
+    
+          const actualX = renderedPosition.x - leftOffset
+          const actualY = renderedPosition.y - topOffset
+    
+          const canvas = document.createElement('canvas')
+          canvas.width = width
+          canvas.height = height
+          const ctx = canvas.getContext('2d')
+    
+          const userImage = new Image()
+          userImage.crossOrigin = 'anonymous'
+          userImage.src = imageUrl
+          await new Promise((resolve) => (userImage.onload = resolve))
+    
+          ctx?.drawImage(
+            userImage,
+            actualX,
+            actualY,
+            renderedDimension.width,
+            renderedDimension.height
+          )
+    
+          const base64 = canvas.toDataURL()
+          const base64Data = base64.split(',')[1]
+          const currentTime = new Date().toLocaleTimeString();
+          const blob = base64ToBlob(base64Data, 'image/png')
+          const file = new File([blob], `${currentTime}_filename.png`, { type: 'image/png' })
+    
+          await startUpload([file], { configId })
+        } catch (err) {
+          toast( 'Something went wrong',{
+            description:
+            (<p className="text-white font-bold text-center">There was a problem saving your config, please try again.</p>),
+            
+          })
         }
+      }
 
-        function base64ToBlob(base64: string, mineType: string) {
-            const byteCharacters = atob(base64)
-            const byteNumbers = new Array(byteCharacters.length)
-            for(let i = 0 ; i < byteCharacters.length; i++) {
-                byteNumbers[i] = byteCharacters.charCodeAt(i)
-            }
-            const byteArray = new Uint8Array(byteNumbers)
-            return new Blob([byteArray], { type: mineType })
+      function base64ToBlob(base64: string, mimeType: string) {
+        const byteCharacters = atob(base64)
+        const byteNumbers = new Array(byteCharacters.length)
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i)
         }
-    }
+        const byteArray = new Uint8Array(byteNumbers)
+        return new Blob([byteArray], { type: mimeType })
+      }
 
     return (
         <div className="relative mt-20 grid grid-cols-1 lg:grid-cols-3 mb-20 pb-20">
@@ -126,25 +132,26 @@ const DesignConfigurator = ({ configID, imageUrl, imageDimension }: DesignConfig
                     <div className="absolute z-40 inset-0 left-[3px] top-px right-[3px] bottom-px rounded-[32px] shadow-[0_0_0_99999px_rgba(229,231,235,0.6)]" />
                     <div className={cn('absolute inset-0 left-[3px] top-px right-[3px] bottom-px rounded-[32px]', `bg-${options.color.tw}`)} />
                 </div>
-                <Rnd default={{
-                    x: 300,
-                    y: 200,
-                    width: imageDimension.width / 4,
-                    height: imageDimension.height / 4
-                }}
-                    onResizeStop={(_, __, ref, ___, { x, y }) => { 
-                        setRenderedDimensions({
-                            height: parseInt(ref.style.height.slice(0,2)),
-                            width: parseInt(ref.style.width.slice(0,2))
+                <Rnd
+                    default={{
+                        x: 150,
+                        y: 205,
+                        height: imageDimensions.height / 4,
+                        width: imageDimensions.width / 4,
+                    }}
+                    onResizeStop={(_, __, ref, ___, { x, y }) => {
+                        setRenderedDimension({
+                            height: parseInt(ref.style.height.slice(0, -2)),
+                            width: parseInt(ref.style.width.slice(0, -2)),
                         })
 
                         setRenderedPosition({ x, y })
-                     }}
-                     onDragStop={(_, data) =>{
+                    }}
+                    onDragStop={(_, data) => {
                         const { x, y } = data
                         setRenderedPosition({ x, y })
-                     }}
-                    className="absolute z-30 border-[1px] border-primary"
+                    }}
+                    className='absolute z-20 border-[3px] border-primary'
                     lockAspectRatio
                     resizeHandleComponent={{
                         bottomRight: <HandleComponent />,

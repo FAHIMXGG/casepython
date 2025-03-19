@@ -43,7 +43,6 @@ const page = async ({ searchParams }: PageProps) => {
 
     return (
         <div>
-            <p>Current Time: {currentTime}</p>
             <DesignConfigurator
                 configId={configuration.id}
                 imageDimensions={{ width, height }}

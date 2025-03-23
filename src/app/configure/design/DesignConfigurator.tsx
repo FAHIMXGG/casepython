@@ -16,6 +16,10 @@ import { ArrowRight, Check, ChevronsUpDown, Weight } from "lucide-react";
 import { BASE_PRICE } from "@/config/products";
 import { useUploadThing } from "@/lib/uploadthing";
 import { toast } from "sonner"
+import { useMutation } from "@tanstack/react-query";
+import { saveConfig as _saveConfig, saveConfigArgs } from "./actions";
+import { useRouter } from "next/navigation";
+
 
 // bg-blue-800 border-blue-800
 // bg-zinc-900 border-zinc-900
@@ -34,6 +38,24 @@ interface DesignConfiguratorProps {
 }
 const DesignConfigurator = ({ configId, imageUrl, imageDimensions, time }: DesignConfiguratorProps) => {
 
+    const router = useRouter()
+    const {mutate: saveConfig} = useMutation({
+        mutationKey: ["saveConfig"],
+        mutationFn: async (args: saveConfigArgs) => {
+            await Promise.all([saveConfiguration(), _saveConfig(args)])
+        },
+        onError: () => {
+            toast( 'Something went wrong',{
+                description:
+                (<p className="text-black">There was a problem saving your config, please try again.</p>),
+                
+              })
+        },
+        onSuccess: () => {
+            router.push(`/configure/preview?id=${configId}`)
+        }
+        
+    })
 
     const [options, setOptions] = useState<{
         color: (typeof COLORS)[number]
@@ -280,7 +302,13 @@ const DesignConfigurator = ({ configId, imageUrl, imageDimensions, time }: Desig
                             <p className="font-medium whitespace-nowrap">
                                 {formatPrice((BASE_PRICE + options.finish.price + options.material.price) / 100)}
                             </p>
-                            <Button onClick={() => saveConfiguration()} size='sm' className='w-full'>
+                            <Button onClick={() => saveConfig({
+                                configId,
+                                color: options.color.value,
+                                finish: options.finish.value,
+                                material: options.material.value,
+                                model: options.model.value,
+                            })} size='sm' className='w-full'>
                                 Continue
                                 <ArrowRight className="h-4 w-4 ml-1.5 inline" />
                             </Button>

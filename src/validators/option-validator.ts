@@ -28,19 +28,19 @@ export const MODELS = {
     options: [
         {
             label: 'iPhone 15',
-            value: 'iPhone 15',
+            value: 'iphone15',
         },
         {
             label: 'iPhone 14',
-            value: 'iPhone 14',
+            value: 'iphone14',
         },
         {
             label: 'iPhone 13',
-            value: 'iPhone 13',
+            value: 'iphone13',
         },
         {
             label: 'iPhone 12',
-            value: 'iPhone 12',
+            value: 'iphone12',
         },
     ]
 } as const

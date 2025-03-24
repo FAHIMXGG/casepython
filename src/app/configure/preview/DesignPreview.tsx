@@ -5,9 +5,10 @@ import { Configuration } from '@prisma/client';
 import Phone from '@/components/Phone';
 import { COLORS, FINISHES, MODELS } from '@/validators/option-validator';
 import { cn, formatPrice } from '@/lib/utils';
-import { Check } from 'lucide-react';
+import { ArrowRight, Check } from 'lucide-react';
 import { BASE_PRICE, PRODUCT_PRICE } from '@/config/products';
 import { div } from 'framer-motion/client';
+import { Button } from '@/components/ui/button';
 
 const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
     const [showConfetti, setShowConfetti] = useState(false)
@@ -16,6 +17,12 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
     const { color, model, finish, material } = configuration
     const tw = COLORS.find((supportedColor) => supportedColor.value === color)?.tw
     const { label: modelLabel } = MODELS.options.find(({ value }) => value === model)!
+
+    let totalPrice = BASE_PRICE
+    if(material === 'polycarbonate')
+        totalPrice += PRODUCT_PRICE.material.polycarbonate
+    if(finish === 'textured')
+        totalPrice += PRODUCT_PRICE.finish.textured
     return (
         <div>
             <div aria-hidden='true' className='pointer-events-none select-none absolute inset-0 overflow-hidden flex justify-center'>
@@ -71,7 +78,17 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
                                     <p className='text-gray-600'>Soft polycarbonate material</p>
                                     <p className='font-medium text-gray-900'>{formatPrice(PRODUCT_PRICE.material.polycarbonate / 100)}</p>
                                 </div>) : null}
+
+                                <div className='my-2 h-px bg-gray-200'/>
+                                <div className='flex items-center justify-between py-2 '>
+                                    <p className='font-semibold text-gray-900'>Order total</p>
+                                    <p className='font-semibold text-gray-900'>{formatPrice(totalPrice / 100)}</p>
+                                </div>
                             </div>
+                        </div>
+
+                        <div className='mt-8 flex justify-end pb-12'>
+                            <Button className='px-4 sm:px-6 lg:px-8'>Check Out <ArrowRight className='h-4 w-4 ml-1.5 inline' /></Button>
                         </div>
                     </div>
                 </div>

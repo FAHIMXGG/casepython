@@ -9,6 +9,7 @@ import { ArrowRight, Check } from 'lucide-react';
 import { BASE_PRICE, PRODUCT_PRICE } from '@/config/products';
 import { div } from 'framer-motion/client';
 import { Button } from '@/components/ui/button';
+import { useMutation } from '@tanstack/react-query';
 
 const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
     const [showConfetti, setShowConfetti] = useState(false)
@@ -23,6 +24,11 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
         totalPrice += PRODUCT_PRICE.material.polycarbonate
     if(finish === 'textured')
         totalPrice += PRODUCT_PRICE.finish.textured
+
+    const {} = useMutation({
+        mutationKey: ["get-checkout-session"],
+        mutationFn: async () => {}
+    })
     return (
         <div>
             <div aria-hidden='true' className='pointer-events-none select-none absolute inset-0 overflow-hidden flex justify-center'>

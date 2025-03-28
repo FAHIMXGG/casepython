@@ -2,6 +2,7 @@
 
 import { BASE_PRICE, PRODUCT_PRICE } from "@/config/products";
 import { db } from "@/db";
+import { stripe } from "@/lib/stripe";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Order } from "@prisma/client";
 
@@ -49,5 +50,11 @@ export const createCheckoutSession = async ({
       },
     });
   }
+
+  const product = await stripe.products.create({
+    name: "Customized Product",
+    description: "A customized product based on your configuration",
+    images: [configuration.imageUrl],
+  })
   
 };

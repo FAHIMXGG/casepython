@@ -13,9 +13,14 @@ import { useMutation } from '@tanstack/react-query';
 import { createCheckoutSession } from './action';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
 
 const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
     const router = useRouter()
+    const {id} = configuration
+    const {user} = useKindeBrowserClient()
+    //console.log(user)
+
     const [showConfetti, setShowConfetti] = useState(false)
     useEffect(() => setShowConfetti(true))
 
@@ -46,6 +51,16 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
                    })
         }
     })
+
+    const handleCheckout = () => {
+        if (user) {
+            
+        }
+        else {
+            localStorage.setItem('configurationId', id)
+        }
+    }
+
     return (
         <div>
             <div aria-hidden='true' className='pointer-events-none select-none absolute inset-0 overflow-hidden flex justify-center'>

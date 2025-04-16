@@ -10,8 +10,12 @@ import { BASE_PRICE, PRODUCT_PRICE } from '@/config/products';
 import { div } from 'framer-motion/client';
 import { Button } from '@/components/ui/button';
 import { useMutation } from '@tanstack/react-query';
+import { createCheckoutSession } from './action';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
+    const router = useRouter()
     const [showConfetti, setShowConfetti] = useState(false)
     useEffect(() => setShowConfetti(true))
 
@@ -25,9 +29,22 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
     if(finish === 'textured')
         totalPrice += PRODUCT_PRICE.finish.textured
 
-    const {} = useMutation({
+    const {mutate: createPaymentSession} = useMutation({
         mutationKey: ["get-checkout-session"],
-        mutationFn: async () => {}
+        mutationFn: createCheckoutSession,
+        onSuccess: ({url}) => {
+           if (url) router.push(url)
+            else throw new Error('unable to create checkout session')
+        },
+        onError: () => {
+           toast('something went wrong', {
+           
+                       description: (<p className="text-white font-bold text-center">
+                           There was an error on our end. Please try again.
+                       </p>),
+                       style: { backgroundColor: "red", color: "white" }
+                   })
+        }
     })
     return (
         <div>
@@ -94,7 +111,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
                         </div>
 
                         <div className='mt-8 flex justify-end pb-12'>
-                            <Button disabled={true} isLoading={true} loadingText="Loading" className='px-4 sm:px-6 lg:px-8'>Check Out <ArrowRight className='h-4 w-4 ml-1.5 inline' /></Button>
+                            <Button onClick={() => createPaymentSession({configId: configuration.id})} className='px-4 sm:px-6 lg:px-8'>Check Out <ArrowRight className='h-4 w-4 ml-1.5 inline' /></Button>
                         </div>
                     </div>
                 </div>

@@ -4,7 +4,7 @@ import { BASE_PRICE, PRODUCT_PRICE } from "@/config/products";
 import { db } from "@/db";
 import { stripe } from "@/lib/stripe";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { Order } from "@prisma/client";
+import { Order, User } from "@prisma/client";
 
 export const createCheckoutSession = async ({
   configId,
@@ -39,6 +39,9 @@ export const createCheckoutSession = async ({
       configurationId: configuration.id,
     },
   });
+
+  console.log(user.id, configuration.id)
+
   if (existingOrder) {
     order = existingOrder;
   } else {
@@ -55,6 +58,30 @@ export const createCheckoutSession = async ({
     name: "Customized Product",
     description: "A customized product based on your configuration",
     images: [configuration.imageUrl],
+    default_price_data: {
+      currency: "USD",
+      unit_amount: price,
+    },
   })
+
+  const stripeSession = await stripe.checkout.sessions.create({
+    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/thank-you?id=${order.id}`,
+    cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/configure/preview?id=${configuration.id}`,
+    payment_method_types: ["card", "paypal"],
+    mode: 'payment',
+    shipping_address_collection: {allowed_countries: ['US', 'BD', 'CN']},
+    metadata: {
+      userID: user.id,
+      orderID: order.id,
+    },
+    line_items: [
+      {
+        price: product.default_price as string,
+        quantity: 1,
+      },
+    ],
+  
+  })
+  return {url: stripeSession.url}
   
 };

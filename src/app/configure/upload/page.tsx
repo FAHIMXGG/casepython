@@ -4,11 +4,11 @@ import { useUploadThing } from '@/lib/uploadthing';
 import { cn } from '@/lib/utils';
 import { Image, Loader2, MousePointerSquareDashed } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import React, { useState, useTransition } from 'react';
+import { useState, useTransition } from 'react';
 import Dropzone, { FileRejection } from 'react-dropzone';
 import { toast } from "sonner"
 
-const page = () => {
+const Page = () => {
     const [isDragOver, setIsDragOver] = useState<boolean>(false)
     const [uploadProgress, setUploadProgress] = useState<number>(0)
     const router = useRouter()
@@ -104,4 +104,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default Page;

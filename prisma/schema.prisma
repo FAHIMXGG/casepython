@@ -84,24 +84,25 @@ model Order {
 }
 
 model ShippingAddress {
-  id                String @id @default(uuid())
-  name              String
-  street            String
-  city              String
-  state             String?
-  zip               String
-  country           String
-  phoneNumber       String
-  orders            Order[]
+  id          String  @id @default(cuid())
+  name        String
+  street      String
+  city        String
+  postalCode  String
+  country     String
+  state       String?
+  phoneNumber String?
+  orders      Order[]
 }
+
 model BillingAddress {
-  id                String @id @default(uuid())
-  name              String
-  street            String
-  city              String
-  state             String?
-  zip               String
-  country           String
-  phoneNumber       String
-  orders            Order[]
+  id          String  @id @default(cuid())
+  name        String
+  street      String
+  city        String
+  postalCode  String
+  country     String
+  state       String?
+  phoneNumber String?
+  orders      Order[]
 }

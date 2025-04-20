@@ -35,8 +35,8 @@ export async function POST(req: Request) {
                 throw new Error('Invalid request metadata')
             }
 
-            const billingAddress = session.customer_details?.address
-            const shippingAddress = session.shipping_details?.address
+            const billingAddress = session.customer_details!.address
+            const shippingAddress = session.shipping_details!.address
 
             await db.order.update({
                 where: {

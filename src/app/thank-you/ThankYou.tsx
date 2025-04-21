@@ -5,6 +5,7 @@ import { getPaymentStatus } from "./actions";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { Loader2 } from "lucide-react";
+import PhonePreview from "@/components/PhonePreview";
 
 const ThankYou = () => {
   const searchParams = useSearchParams();
@@ -43,7 +44,7 @@ const ThankYou = () => {
   const { color } = configuration;
 
   return (
-    <div className='bg-white'>
+    <div className="bg-white">
       <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
         <div className="max-w-xl">
           <p className="text-base font-medium text-primary">Thank you!</p>
@@ -74,8 +75,12 @@ const ThankYou = () => {
           </div>
         </div>
 
-        
-
+        <div className="flex space-x-6 overflow-hidden mt-4 rounded-xl bg-gray-900/5 ring-1 ring-inset ring-gray-900/10 lg:rounded-2xl">
+          <PhonePreview
+            croppedImageUrl={configuration.croppedImageUrl!}
+            color={color!}
+          />
+        </div>
       </div>
     </div>
   );

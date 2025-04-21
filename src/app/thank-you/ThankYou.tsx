@@ -73,6 +73,9 @@ const ThankYou = () => {
             </p>
           </div>
         </div>
+
+        
+
       </div>
     </div>
   );

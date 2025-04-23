@@ -19,32 +19,12 @@ import LoginModal from '@/components/LoginModal';
 const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
     const router = useRouter()
     const {id} = configuration
-    const [user, setUser] = useState(null);
-    
-    const { user: kindeUser, isLoading } = useKindeBrowserClient();
+    const {user} = useKindeBrowserClient()
+    //console.log(user)
     const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false)
-
-    const fetchUser = async () => {
-        if (!kindeUser) {
-            // Simulate fetching or handling user data asynchronously if needed
-            console.log('User not found, fetching...');
-            // Here you could fetch additional data if needed, e.g., using an API call
-            setUser(null); // Ensure it's set to null if there's no user
-        } else {
-            // @ts-ignore
-            setUser(kindeUser); // If user exists, set it
-        }
-    };
-
-    useEffect(() => {
-        if (kindeUser) {
-            fetchUser(); // Fetch user asynchronously when the component is mounted
-        }
-    }, [kindeUser]); // Dependency on kindeUser to trigger on change
 
     const [showConfetti, setShowConfetti] = useState<boolean>(false)
     useEffect(() => setShowConfetti(true))
-    console.log(user)
 
     const { color, model, finish, material } = configuration
     const tw = COLORS.find((supportedColor) => supportedColor.value === color)?.tw

@@ -19,7 +19,8 @@ import LoginModal from '@/components/LoginModal';
 const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
     const router = useRouter()
     const {id} = configuration
-    const {user} = useKindeBrowserClient()
+    const { getUser } = useKindeBrowserClient()
+    const user = getUser()
     console.log(user)
     const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false)
 

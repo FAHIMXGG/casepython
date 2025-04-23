@@ -20,7 +20,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
     const router = useRouter()
     const {id} = configuration
     const {user} = useKindeBrowserClient()
-    //console.log(user)
+    console.log(user)
     const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false)
 
     const [showConfetti, setShowConfetti] = useState<boolean>(false)
@@ -56,6 +56,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
 
     const handleCheckout = () => {
         if (user) {
+            console.log(user)
             createPaymentSession({configId: id})
         }
         else {

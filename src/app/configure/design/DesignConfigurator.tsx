@@ -39,7 +39,7 @@ interface DesignConfiguratorProps {
 const DesignConfigurator = ({ configId, imageUrl, imageDimensions, time }: DesignConfiguratorProps) => {
 
     const router = useRouter()
-    const {mutate: saveConfig} = useMutation({
+    const {mutate: saveConfig, isPending} = useMutation({
         mutationKey: ["saveConfig"],
         mutationFn: async (args: saveConfigArgs) => {
             await Promise.all([saveConfiguration(), _saveConfig(args)])
@@ -302,7 +302,11 @@ const DesignConfigurator = ({ configId, imageUrl, imageDimensions, time }: Desig
                             <p className="font-medium whitespace-nowrap">
                                 {formatPrice((BASE_PRICE + options.finish.price + options.material.price) / 100)}
                             </p>
-                            <Button onClick={() => saveConfig({
+                            <Button
+                            isLoading={isPending}
+                            disabled={isPending}
+                            loadingText="Saving..."
+                            onClick={() => saveConfig({
                                 configId,
                                 color: options.color.value,
                                 finish: options.finish.value,

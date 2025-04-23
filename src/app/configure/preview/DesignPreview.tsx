@@ -31,6 +31,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
             // Here you could fetch additional data if needed, e.g., using an API call
             setUser(null); // Ensure it's set to null if there's no user
         } else {
+            // @ts-ignore
             setUser(kindeUser); // If user exists, set it
         }
     };

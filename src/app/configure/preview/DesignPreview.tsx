@@ -15,12 +15,12 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
 import LoginModal from '@/components/LoginModal';
+import { useUser } from '@/app/user/getUser';
 
 const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
     const router = useRouter()
     const {id} = configuration
-    const { getUser } = useKindeBrowserClient()
-    const user = getUser()
+    const {user} = useUser()
     console.log(user)
     const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false)
 

@@ -17,9 +17,7 @@ import {
 const Navbar = () => {
   const { user } = useUser();
   //console.log(user?.primaryEmailAddress?.emailAddress);
-  const isAdmin =
-    user?.primaryEmailAddress?.emailAddress ===
-    process.env.NEXT_PUBLIC_ADMIN_EMAIL;
+  const isAdmin = user?.primaryEmailAddress?.emailAddress === process.env.NEXT_PUBLIC_ADMIN_EMAIL
 
   return (
     <nav className="sticky z-[100] h-14 inset-x-0 top-0 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all">
@@ -30,11 +28,8 @@ const Navbar = () => {
           </Link>
 
           <div className="h-full flex items-center space-x-4">
-            {user && <h1>{user.username}</h1>}
-
-            <SignedIn>
-              <UserButton />
-              {isAdmin && (
+            {/* {user && <h1>{user?.primaryEmailAddress?.emailAddress}</h1>} */}
+            {isAdmin && (
                 <Link
                   href="/dashboard"
                   className={buttonVariants({ size: "sm", variant: "ghost" })}
@@ -42,6 +37,10 @@ const Navbar = () => {
                   Dashboard ✨
                 </Link>
               )}
+
+            <SignedIn>
+              <UserButton />
+              
 
               <Link
                 href="/configure/upload"

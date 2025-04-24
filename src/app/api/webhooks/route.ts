@@ -76,7 +76,7 @@ export async function POST(req: Request) {
         subject: "Your order has been received",
         react: OrderReceivedEmail({
           orderId,
-          orderData: updatedOrder.createdAt.toLocaleDateString(),
+          orderDate: updatedOrder.createdAt.toLocaleDateString(),
           // @ts-ignore
           shippingAddress: {
             name: session.customer_details!.name!,

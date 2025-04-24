@@ -18,18 +18,19 @@ import {
 import { Progress } from "@/components/ui/progress";
 import { db } from "@/db";
 import { formatPrice } from "@/lib/utils";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { notFound } from "next/navigation";
 import React from "react";
 import StatusDropdown from "./StatusDropdown";
+import { currentUser } from "@clerk/nextjs/server";
+
+//2259
 
 const Page = async () => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const user = await currentUser();
 
   const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 
-  if (!user || user.email !== ADMIN_EMAIL) {
+  if (!user || user.primaryEmailAddress?.emailAddress !== ADMIN_EMAIL) {
     return notFound();
   }
 

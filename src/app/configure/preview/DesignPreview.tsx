@@ -1,4 +1,5 @@
 "use client"
+//2259
 import Confetti from 'react-dom-confetti';
 import React, { useEffect, useState } from 'react';
 import { Configuration } from '@prisma/client';
@@ -13,13 +14,14 @@ import { useMutation } from '@tanstack/react-query';
 import { createCheckoutSession } from './action';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
-import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
+
 import LoginModal from '@/components/LoginModal';
+import { useUser } from '@clerk/nextjs';
 
 const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
     const router = useRouter()
     const {id} = configuration
-    const {user} = useKindeBrowserClient()
+    const  {user}  = useUser();
     //console.log(user)
     const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false)
 
@@ -56,6 +58,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
 
     const handleCheckout = () => {
         if (user) {
+            //console.log(user)
             createPaymentSession({configId: id})
         }
         else {

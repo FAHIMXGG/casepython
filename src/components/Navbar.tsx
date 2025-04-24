@@ -1,15 +1,25 @@
+"use client";
+
 import React from "react";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import Link from "next/link";
 import { buttonVariants } from "./ui/button";
 import { ArrowRight } from "lucide-react";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+  useUser,
+} from "@clerk/nextjs";
 
-const Navbar = async () => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
-  console.log(user)
-  const isAdmin = user?.email === process.env.ADMIN_EMAIL;
+const Navbar = () => {
+  const { user } = useUser();
+  //console.log(user?.primaryEmailAddress?.emailAddress);
+  const isAdmin =
+    user?.primaryEmailAddress?.emailAddress ===
+    process.env.NEXT_PUBLIC_ADMIN_EMAIL;
 
   return (
     <nav className="sticky z-[100] h-14 inset-x-0 top-0 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all">
@@ -20,76 +30,61 @@ const Navbar = async () => {
           </Link>
 
           <div className="h-full flex items-center space-x-4">
-            <h1>{user?.username}</h1>
-            {user ? (
-              <>
+            {user && <h1>{user.username}</h1>}
+
+            <SignedIn>
+              <UserButton />
+              {isAdmin && (
                 <Link
-                  href="/api/auth/logout"
-                  className={buttonVariants({
-                    size: "sm",
-                    variant: "ghost",
-                  })}
+                  href="/dashboard"
+                  className={buttonVariants({ size: "sm", variant: "ghost" })}
                 >
-                  Sign out
+                  Dashboard ✨
                 </Link>
-                {isAdmin ? (
-                  <Link
-                    href="/dashboard"
-                    className={buttonVariants({
-                      size: "sm",
-                      variant: "ghost",
-                    })}
-                  >
-                    Dashboard ✨
-                  </Link>
-                ) : null}
-                <Link
-                  href="/configure/upload"
-                  className={buttonVariants({
-                    size: "sm",
-                    className: "hidden sm:flex items-center gap-1",
-                  })}
+              )}
+
+              <Link
+                href="/configure/upload"
+                className={buttonVariants({
+                  size: "sm",
+                  className: "hidden sm:flex items-center gap-1",
+                })}
+              >
+                Create case
+                <ArrowRight className="ml-1.5 h-5 w-5" />
+              </Link>
+            </SignedIn>
+
+            <SignedOut>
+              <SignInButton mode="modal">
+                <button
+                  className={buttonVariants({ size: "sm", variant: "ghost" })}
                 >
-                  Create case
-                  <ArrowRight className="ml-1.5 h-5 w-5" />
-                </Link>
-              </>
-            ) : (
-              <>
-                <Link
-                  href="/api/auth/register"
-                  className={buttonVariants({
-                    size: "sm",
-                    variant: "ghost",
-                  })}
+                  Sign in
+                </button>
+              </SignInButton>
+
+              <SignUpButton mode="modal">
+                <button
+                  className={buttonVariants({ size: "sm", variant: "ghost" })}
                 >
                   Sign up
-                </Link>
+                </button>
+              </SignUpButton>
 
-                <Link
-                  href="/api/auth/login"
-                  className={buttonVariants({
-                    size: "sm",
-                    variant: "ghost",
-                  })}
-                >
-                  Login
-                </Link>
+              <div className="h-8 w-px bg-zinc-200 hidden sm:block" />
 
-                <div className="h-8 w-px bg-zinc-200 hidden sm:block" />
-
-                <Link
-                  href="/configure/upload"
-                  className={buttonVariants({
-                    size: "sm",
-                    className: "hidden sm:flex items-center gap-1",
-                  })}
-                >
-                  Create case
-                  <ArrowRight className="ml-1.5 h-5 w-5" />
-                </Link>
-              </>
-            )}
+              <Link
+                href="/configure/upload"
+                className={buttonVariants({
+                  size: "sm",
+                  className: "hidden sm:flex items-center gap-1",
+                })}
+              >
+                Create case
+                <ArrowRight className="ml-1.5 h-5 w-5" />
+              </Link>
+            </SignedOut>
           </div>
         </div>
       </MaxWidthWrapper>

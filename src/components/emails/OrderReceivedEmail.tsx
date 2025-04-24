@@ -65,8 +65,9 @@ const OrderReceivedEmail = ({
         <Section style={global.defaultPadding}>
           <Row
             style={{
-              display: "inline-flex",
-              gap: 16,
+              display: "flex",
+              flexDirection: "row",
+              gap: 40,
               marginBottom: 40,
               alignItems: "flex-start",
             }}

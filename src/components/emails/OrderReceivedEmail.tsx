@@ -16,7 +16,9 @@ import {
 } from "@react-email/components";
 
 const OrderReceivedEmail = ({
-  shippingAddress, orderId, orderDate,
+  shippingAddress,
+  orderId,
+  orderDate,
 }: {
   shippingAddress: ShippingAddress;
   orderId: string;
@@ -61,12 +63,19 @@ const OrderReceivedEmail = ({
         </Section>
         <Hr style={global.hr} />
         <Section style={global.defaultPadding}>
-          <Row style={{ display: "inline-flex gap-16", marginBottom: 40 }}>
+          <Row
+            style={{
+              display: "inline-flex",
+              gap: 16,
+              marginBottom: 40,
+              alignItems: "flex-start",
+            }}
+          >
             <Column style={{ width: 170 }}>
               <Text style={global.paragraphWithBold}>Order Number</Text>
               <Text style={track.number}>{orderId}</Text>
             </Column>
-            <Column style={{ marginLeft: 20 }}>
+            <Column>
               <Text style={global.paragraphWithBold}>Order Date</Text>
               <Text style={track.number}>{orderDate}</Text>
             </Column>
@@ -75,24 +84,25 @@ const OrderReceivedEmail = ({
 
         <Hr style={global.hr} />
 
-          <Section style={paddingY}>
-            <Row>
-              <Text
-                style={{
-                  ...footer.text,
-                  paddingTop: 30,
-                  paddingBottom: 30,
-                }}>
-                Please contact us if you have any questions. (If you reply to
-                this email, we won't be able to see it.)
-              </Text>
-            </Row>
-            <Row>
-              <Text style={footer.text}>
-                © CasePython, Inc. All Rights Reserved.
-              </Text>
-            </Row>
-          </Section>
+        <Section style={paddingY}>
+          <Row>
+            <Text
+              style={{
+                ...footer.text,
+                paddingTop: 30,
+                paddingBottom: 30,
+              }}
+            >
+              Please contact us if you have any questions. (If you reply to this
+              email, we won't be able to see it.)
+            </Text>
+          </Row>
+          <Row>
+            <Text style={footer.text}>
+              © CasePython, Inc. All Rights Reserved.
+            </Text>
+          </Row>
+        </Section>
       </Container>
     </Html>
   );

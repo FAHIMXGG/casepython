@@ -71,7 +71,7 @@ export async function POST(req: Request) {
         },
       });
       await resend.emails.send({
-        from: "CasePython <ahasanulhaquefahim2@gmail.com>",
+        from: "CasePython <support@kraito.com>",
         to: [event.data.object.customer_details.email],
         subject: "Your order has been received",
         react: OrderReceivedEmail({

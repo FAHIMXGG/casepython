@@ -58,13 +58,13 @@ const Page = async () => {
   const tw = COLORS.find(
     (supportedColor) => supportedColor.value === orders[0]?.configuration?.color
   )?.tw;
-  console.log(orders);
+  //console.log(orders);
 
   return (
     <div className="flex min-h-screen w-full bg-muted/40 ">
       <div className="max-w-7xl w-full mx-auto flex flex-col sm:gap-4 sm:py-4">
         <div className="flex flex-col gap-16">
-          <h1 className="text-4xl font-bold tracking-tight lg:mt-28">Your orders</h1>
+          <h1 className="text-4xl font-bold tracking-tight lg:mt-16">Your orders</h1>
 
           <Table>
             <TableHeader>
@@ -107,7 +107,7 @@ const Page = async () => {
                   <TableCell className="text-right ">
                     <div className="flex justify-end">
                       <Link
-                        href="/configure/upload"
+                        href={`/track?orderId=${order.id}`}
                         className={buttonVariants({
                           size: "sm",
                           className: "hidden sm:flex items-center gap-1 w-20",

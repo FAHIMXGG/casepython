@@ -105,7 +105,7 @@ const Page = async () => {
                           href={`/track?orderId=${order.id}`}
                           className={buttonVariants({
                             size: "sm",
-                            className: "hidden sm:flex items-center gap-1 w-20",
+                            className: "sm:flex items-center gap-1 w-20",
                           })}
                         >
                           Track

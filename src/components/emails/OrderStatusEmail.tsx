@@ -8,6 +8,7 @@ import {
   Html,
   Img,
   Preview,
+  Row,
   Section,
   Text,
 } from "@react-email/components";
@@ -56,6 +57,27 @@ const OrderStatusEmail = ({
             <Text>
               You can track your order at any time by visiting your dashboard.
             </Text>
+          </Section>
+          <Hr style={global.hr} />
+
+          <Section style={paddingY}>
+            <Row>
+              <Text
+                style={{
+                  ...footer.text,
+                  paddingTop: 30,
+                  paddingBottom: 30,
+                }}
+              >
+                Please contact us if you have any questions. (If you reply to
+                this email, we won't be able to see it.)
+              </Text>
+            </Row>
+            <Row>
+              <Text style={footer.text}>
+                © CasePython, Inc. All Rights Reserved.
+              </Text>
+            </Row>
           </Section>
         </Container>
       </Body>

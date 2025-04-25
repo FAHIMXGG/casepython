@@ -63,24 +63,16 @@ const OrderReceivedEmail = ({
         </Section>
         <Hr style={global.hr} />
         <Section style={global.defaultPadding}>
-          <Row
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              gap: 40,
-              marginBottom: 40,
-              alignItems: "flex-start",
-            }}
-          >
-            <Column style={{ width: 170 }}>
+          
+            <Row>
               <Text style={global.paragraphWithBold}>Order Number</Text>
               <Text style={track.number}>{orderId}</Text>
-            </Column>
-            <Column>
+            </Row>
+            <Row style={{marginTop: 20}}>
               <Text style={global.paragraphWithBold}>Order Date</Text>
               <Text style={track.number}>{orderDate}</Text>
-            </Column>
-          </Row>
+            </Row>
+          
         </Section>
 
         <Hr style={global.hr} />

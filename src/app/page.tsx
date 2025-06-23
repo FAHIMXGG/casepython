@@ -67,7 +67,7 @@ export default function Home() {
             <div className="relative md:max-w-xl">
               <img src="/your-image.png" className="absolute w-40 lg:w-52 left-56 -top-20 select-npne hidden sm:block lg:hidden xl:block" />
               <img src="/line.png" className="absolute w-20 -left-6 -bottom-6 select-none" />
-              <Phone className="w-64" imgSrc="/testimonials/1.jpg" />
+              <Phone className="w-64" imgSrc="https://anuzia5kxh.ufs.sh/f/wl7CbeyNKgIu0y5Ptjz5x4Xe7T2MzawWQZA3Vg1SDnlhb9id" />
             </div>
           </div>
         </MaxWidthWrapper>
@@ -157,12 +157,12 @@ export default function Home() {
               <img src="/arrow.png" className="absolute top-[25rem] md:top-1/2 -translate-y-1/2 z-10 left-1/2 -translate-x-1/2 rotate-90 md:rotate-0" alt="" />
               <div className='relative h-80 md:h-full w-full md:justify-self-end max-w-sm rounded-xl bg-gray-900/5 ring-inset ring-gray-900/10 lg:rounded-2xl'>
                 <img
-                  src='/horse.jpg'
+                  src='https://anuzia5kxh.ufs.sh/f/wl7CbeyNKgIu2hNkbz5HTjZwRvP7QmLMaV3W6duOp5fDYsSn'
                   className='rounded-md object-cover bg-white shadow-2xl ring-1 ring-gray-900/10 h-full w-full'
                 />
               </div>
 
-              <Phone className="w-60" imgSrc="/horse_phone.jpg"/>
+              <Phone className="w-60" imgSrc="https://anuzia5kxh.ufs.sh/f/wl7CbeyNKgIu2hNkbz5HTjZwRvP7QmLMaV3W6duOp5fDYsSn"/>
             </div>
           </div>
           <ul className='mx-auto mt-12 max-w-prose sm:text-lg space-y-2 w-fit'>

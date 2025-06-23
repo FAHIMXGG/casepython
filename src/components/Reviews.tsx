@@ -7,11 +7,11 @@ import { cn } from '@/lib/utils';
 import Phone from './Phone';
 
 const PHONES = [
+    "https://anuzia5kxh.ufs.sh/f/wl7CbeyNKgIuWJR53TorIcwZbCyz5xKPnUVv97TBGqQoDead",
     "/testimonials/1.jpg",
-    "/testimonials/2.jpg",
-    "/testimonials/3.jpg",
+    "https://anuzia5kxh.ufs.sh/f/wl7CbeyNKgIu11t0QTncoigjBplMQFm2T5wtqsPJbaxS834H",
     "/testimonials/4.jpg",
-    "/testimonials/5.jpg",
+    "https://anuzia5kxh.ufs.sh/f/wl7CbeyNKgIucekl9amu2mT39L0Gg7D1kWytKnocxBjMQY6d",
     "/testimonials/6.jpg",
 ]
 

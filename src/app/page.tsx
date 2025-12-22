@@ -14,7 +14,7 @@ export default function Home() {
           <div className="col-span-2 px-6 lg:px-0 lg:pt-4">
             <div className="relative mx-auto text-center lg:text-left flex flex-col items-center lg:items-start">
               <div className="absolute w-28 left-0 -top-20 hidden lg:block">
-                <img src="/snake-1.png" className="w-full" />
+                <img src="/snake-1.png" className="w-full" alt="" />
               </div>
               <h1 className="relative w-fit tracking-tight text-balance mt-16 font-bold !leading-tight text-gray-900 text-5xl md:text-6xl lg:text-7xl">Your Image on a <span className="bg-[#E4335A] px-2 text-white">Custom</span> Phone Case
               </h1>
@@ -41,11 +41,11 @@ export default function Home() {
 
               <div className="mt-12 flex flex-col sm:flex-row items-center sm:items-start gap-5">
                 <div className="flex -space-x-4">
-                  <img className="inline-block h-10 w-10 rounded-full ring-2 ring-slate-100" src="/users/user-1.png" />
-                  <img className="inline-block h-10 w-10 rounded-full ring-2 ring-slate-100" src="/users/user-2.png" />
-                  <img className="inline-block h-10 w-10 rounded-full ring-2 ring-slate-100" src="/users/user-3.png" />
-                  <img className="inline-block h-10 w-10 rounded-full ring-2 ring-slate-100" src="/users/user-4.jpg" />
-                  <img className="inline-block h-10 w-10 rounded-full ring-2 ring-slate-100 object-cover" src="/users/user-5.jpg" />
+                  <img className="inline-block h-10 w-10 rounded-full ring-2 ring-slate-100" src="/users/user-1.png" alt="" />
+                  <img className="inline-block h-10 w-10 rounded-full ring-2 ring-slate-100" src="/users/user-2.png" alt="" />
+                  <img className="inline-block h-10 w-10 rounded-full ring-2 ring-slate-100" src="/users/user-3.png" alt="" />
+                  <img className="inline-block h-10 w-10 rounded-full ring-2 ring-slate-100" src="/users/user-4.jpg" alt="" />
+                  <img className="inline-block h-10 w-10 rounded-full ring-2 ring-slate-100 object-cover" src="/users/user-5.jpg" alt="" />
                 </div>
 
                 <div className="flex flex-col justify-between item-center sm:stems-start">
@@ -65,8 +65,8 @@ export default function Home() {
           </div>
           <div className="col-span-full lg:col-span-1 w-full flex justify-center px-8 sm:px-16 md:px-0 mt-32 lg:mx-0 lg:mt-20 h-fit">
             <div className="relative md:max-w-xl">
-              <img src="/your-image.png" className="absolute w-40 lg:w-52 left-56 -top-20 select-npne hidden sm:block lg:hidden xl:block" />
-              <img src="/line.png" className="absolute w-20 -left-6 -bottom-6 select-none" />
+              <img src="/your-image.png" className="absolute w-40 lg:w-52 left-56 -top-20 select-npne hidden sm:block lg:hidden xl:block" alt="" />
+              <img src="/line.png" className="absolute w-20 -left-6 -bottom-6 select-none" alt="" />
               <Phone className="w-64" imgSrc="https://anuzia5kxh.ufs.sh/f/wl7CbeyNKgIu0y5Ptjz5x4Xe7T2MzawWQZA3Vg1SDnlhb9id" />
             </div>
           </div>
@@ -79,7 +79,7 @@ export default function Home() {
             <h2 className="order-1 mt-2 tracking-tight text-center text-balance !leading-tight font-bold text-5xl md:text-6xl text-gray-900">
               What our <span className="relative px-2 ">Customers <Icons.underline className="hidden sm:block pointer-events-none absolute inset-x-0 -bottom-6 text-[#E4335A]" /> </span> say
             </h2>
-            <img src="/snake-2.png" className="w-24 order-0 lg:order-2" />
+            <img src="/snake-2.png" className="w-24 order-0 lg:order-2" alt="" />
           </div>
           <div className="mx-auto grid max-w-2xl grid-cols-1 px-4 lg:mx-0 lg:max-w-none lg:grid-cols-2 gap-y-16">
             <div className="flex flex-auto flex-col gap-4 lg:pr-8 xl:pr-20">
@@ -159,6 +159,7 @@ export default function Home() {
                 <img
                   src='https://anuzia5kxh.ufs.sh/f/wl7CbeyNKgIu2hNkbz5HTjZwRvP7QmLMaV3W6duOp5fDYsSn'
                   className='rounded-md object-cover bg-white shadow-2xl ring-1 ring-gray-900/10 h-full w-full'
+                  alt=""
                 />
               </div>
 

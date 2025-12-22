@@ -67,6 +67,7 @@ const Page = () => {
                         <div {...getRootProps()} className='w-full h-full flex flex-col items-center flex-1 justify-center'>
                             <input {...getInputProps()} />
                             {
+                                // eslint-disable-next-line jsx-a11y/alt-text
                                 isDragOver ? <MousePointerSquareDashed className='h-5 w-6 text-zinc-500 mb-2' /> : isUploading || isPending ? <Loader2 className='animate-spin h-6 w-6 text-zinc-500 mb-2' /> : <Image className='h-6 w-6 text-zinc-500 mb-2' />
                             }
                             <div className='flex flex-col justify-center mb-2 text-sm text-zinc-700'>

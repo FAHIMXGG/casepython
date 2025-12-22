@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 
 export function SignInWithPasskeyButton() {
-  const { signIn, isLoaded } = useSignIn();
+  const { signIn, isLoaded, setActive } = useSignIn();
   const [isLoading, setIsLoading] = useState(false);
 
   const handlePasskeySignIn = async () => {
@@ -22,7 +22,7 @@ export function SignInWithPasskeyButton() {
       });
 
       if (signInAttempt.status === 'complete') {
-        await signIn.setActive({ session: signInAttempt.createdSessionId });
+        await setActive({ session: signInAttempt.createdSessionId });
         toast.success('Signed in with passkey!');
         window.location.href = '/';
       } else {

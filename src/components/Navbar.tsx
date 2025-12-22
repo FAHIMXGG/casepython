@@ -8,8 +8,6 @@ import { ArrowRight } from "lucide-react";
 import {
   SignedIn,
   SignedOut,
-  SignInButton,
-  SignUpButton,
   UserButton,
   useUser,
 } from "@clerk/nextjs";
@@ -62,21 +60,19 @@ const Navbar = () => {
             </SignedIn>
 
             <SignedOut>
-              <SignInButton mode="modal">
-                <button
-                  className={buttonVariants({ size: "sm", variant: "ghost" })}
-                >
-                  Sign in
-                </button>
-              </SignInButton>
+              <Link
+                href="/sign-in"
+                className={buttonVariants({ size: "sm", variant: "ghost" })}
+              >
+                Sign in
+              </Link>
 
-              <SignUpButton mode="modal">
-                <button
-                  className={buttonVariants({ size: "sm", variant: "ghost" })}
-                >
-                  Sign up
-                </button>
-              </SignUpButton>
+              <Link
+                href="/sign-up"
+                className={buttonVariants({ size: "sm", variant: "ghost" })}
+              >
+                Sign up
+              </Link>
 
               <div className="h-8 w-px bg-zinc-200 hidden sm:block" />
 

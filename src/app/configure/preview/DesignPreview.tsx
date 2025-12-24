@@ -6,7 +6,7 @@ import { Configuration } from '@prisma/client';
 import Phone from '@/components/Phone';
 import { COLORS, FINISHES, MODELS } from '@/validators/option-validator';
 import { cn, formatPrice } from '@/lib/utils';
-import { ArrowRight, Check } from 'lucide-react';
+import { ArrowRight, Check, Loader2 } from 'lucide-react';
 import { BASE_PRICE, PRODUCT_PRICE } from '@/config/products';
 import { div } from 'framer-motion/client';
 import { Button } from '@/components/ui/button';
@@ -66,7 +66,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
       : 0
     const finalPrice = totalPrice - discountAmount
 
-    const {mutate: createPaymentSession} = useMutation({
+    const {mutate: createPaymentSession, isPending: isProcessingCheckout} = useMutation({
         mutationKey: ["get-checkout-session"],
         mutationFn: createCheckoutSession,
         onSuccess: ({url}) => {
@@ -272,7 +272,22 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
                         </div>
 
                         <div className='mt-8 flex justify-end pb-12'>
-                            <Button onClick={() => handleCheckout()} className='px-4 sm:px-6 lg:px-8'>Check Out <ArrowRight className='h-4 w-4 ml-1.5 inline' /></Button>
+                            <Button 
+                                onClick={() => handleCheckout()} 
+                                disabled={isProcessingCheckout}
+                                className='px-4 sm:px-6 lg:px-8'
+                            >
+                                {isProcessingCheckout ? (
+                                    <>
+                                        <Loader2 className='h-4 w-4 mr-1.5 animate-spin inline' />
+                                        Processing...
+                                    </>
+                                ) : (
+                                    <>
+                                        Check Out <ArrowRight className='h-4 w-4 ml-1.5 inline' />
+                                    </>
+                                )}
+                            </Button>
                         </div>
                     </div>
                 </div>

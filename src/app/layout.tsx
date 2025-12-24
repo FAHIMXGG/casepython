@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import Provider from "@/components/Provider";
 import { constructMetadata } from "@/lib/utils";
+import TopLoadingBar from "@/components/TopLoadingBar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -35,6 +36,7 @@ export default function RootLayout({
         <body className={recursive.className}>
           <Provider>
             <Navbar />
+            <TopLoadingBar />
             <main className="flex bg-background flex-col min-h-[calc(100vh-3.5rem-1px)]">
               <div className="flex-1 flex flex-col h-full">
                 {children}

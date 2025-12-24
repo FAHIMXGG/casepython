@@ -5,9 +5,9 @@ import React from "react";
 import { OrderStatus } from "@prisma/client";
 import Image from "next/image";
 import { cn, formatPrice } from "@/lib/utils";
-import Phone from "@/components/Phone";
 import { COLORS } from "@/validators/option-validator";
 import {Package, PackageOpen, Truck,} from "lucide-react";
+import PhoneD from "@/components/PhoneD";
 
 const LABEL_MAP: Record<OrderStatus, string> = {
   awaiting_shipment: "Awaiting Shipment",
@@ -55,36 +55,36 @@ const Page = async ({
 
   return (
     <div className="min-h-screen bg-muted/40 py-10">
-      <div className="max-w-3xl mx-auto bg-white rounded-lg shadow p-6">
-        <h1 className="text-2xl font-bold mb-6">Order Tracking</h1>
+      <div className="max-w-3xl mx-auto bg-card rounded-lg shadow p-6">
+        <h1 className="text-2xl font-bold mb-6 text-foreground">Order Tracking</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Order Details */}
           <div>
-            <h2 className="text-lg font-semibold mb-4">Order Details</h2>
+            <h2 className="text-lg font-semibold mb-4 text-foreground">Order Details</h2>
             <div className="space-y-2">
-              <p>
-                <span className="font-medium">Order ID:</span> {order.id}
+              <p className="transition-colors duration-300">
+                <span className="font-medium text-foreground">Order ID:</span> <span className="text-muted-foreground">{order.id}</span>
               </p>
-              <p className="font-bold">
-                <span className="font-medium ">Status:</span>{" "}
-                {LABEL_MAP[order.status]}
+              <p className="font-bold transition-colors duration-300">
+                <span className="font-medium text-foreground">Status:</span>{" "}
+                <span className="text-foreground">{LABEL_MAP[order.status]}</span>
               </p>
-              <p>
-                <span className="font-medium">Order Date:</span>{" "}
-                {order.createdAt.toLocaleDateString()}
+              <p className="transition-colors duration-300">
+                <span className="font-medium text-foreground">Order Date:</span>{" "}
+                <span className="text-muted-foreground">{order.createdAt.toLocaleDateString()}</span>
               </p>
-              <p>
-                <span className="font-medium">Amount:</span>{" "}
-                {formatPrice(order.amount)}
+              <p className="transition-colors duration-300">
+                <span className="font-medium text-foreground">Amount:</span>{" "}
+                <span className="text-muted-foreground">{formatPrice(order.amount)}</span>
               </p>
-              <p>
-                <span className="font-medium">Model:</span>{" "}
-                {order.configuration.model}
+              <p className="transition-colors duration-300">
+                <span className="font-medium text-foreground">Model:</span>{" "}
+                <span className="text-muted-foreground">{order.configuration.model}</span>
               </p>
-              <p>
-                <span className="font-medium">Color:</span>{" "}
-                {order.configuration.color}
+              <p className="transition-colors duration-300">
+                <span className="font-medium text-foreground">Color:</span>{" "}
+                <span className="text-muted-foreground">{order.configuration.color}</span>
               </p>
             </div>
           </div>
@@ -92,7 +92,7 @@ const Page = async ({
           {/* Product Details */}
           <div className="grid justify-center">
             <div className="lg:w-40">
-              <Phone
+              <PhoneD
                 className={cn(`bg-${tw}`, "max-w-[150px] md:max-w-full")}
                 imgSrc={order.configuration.croppedImageUrl!}
               />
@@ -101,29 +101,32 @@ const Page = async ({
 
           {/* Shipping Address */}
           <div className="md:col-span-2">
-            <h2 className="text-lg font-semibold mb-4">Shipping Address</h2>
+            <h2 className="text-lg font-semibold mb-4 text-foreground">Shipping Address</h2>
             <div className="bg-muted/20 p-4 rounded-md">
-              <p>{order.shippingAddress?.name}</p>
-              <p>{order.shippingAddress?.street}</p>
-              <p>
+              <p className="text-foreground">{order.shippingAddress?.name}</p>
+              <p className="text-foreground">{order.shippingAddress?.street}</p>
+              <p className="text-foreground">
                 {order.shippingAddress?.city}, {order.shippingAddress?.state}{" "}
                 {order.shippingAddress?.postalCode}
               </p>
-              <p>{order.shippingAddress?.country}</p>
+              <p className="text-foreground">{order.shippingAddress?.country}</p>
             </div>
           </div>
 
           {/* Tracking Timeline */}
           <div className="md:col-span-2">
-            <h2 className="text-lg font-semibold mb-4">Tracking Timeline</h2>
+            <h2 className="text-lg font-semibold mb-4 text-foreground">Tracking Timeline</h2>
             
             <div className="space-y-4">
               <div
-                className={`flex items-center ${order.status === "awaiting_shipment" ? "text-[#E4335A]" : "text-green-600"}`}
+                className={`flex items-center ${order.status === "awaiting_shipment" ? "text-primary" : "text-green-600"}`}
               >
-                <div className="w-4 h-4 rounded-full bg-current"></div>
+                <div className="w-4 h-4 rounded-full bg-current transition-colors duration-300"></div>
                 <div className="ml-4">
-                  <p className="font-medium flex gap-5">Order Confirmed <PackageOpen/></p>
+                  <p className="font-medium flex gap-5">
+                    <span className="text-foreground">Order Confirmed</span>
+                    <PackageOpen className="text-foreground transition-colors duration-300"/>
+                  </p>
                   <p className="text-sm text-muted-foreground">
                     {order.createdAt.toLocaleDateString()}
                   </p>
@@ -131,11 +134,14 @@ const Page = async ({
               </div>
 
               <div
-                className={`flex items-center ${order.status === "fulfilled" ? "text-[#E4335A]" : order.status === "shipped" ? "text-green-600" : "text-gray-300"}`}
+                className={`flex items-center ${order.status === "fulfilled" ? "text-primary" : order.status === "shipped" ? "text-green-600" : "text-muted-foreground/40"}`}
               >
-                <div className="w-4 h-4 rounded-full bg-current"></div>
+                <div className="w-4 h-4 rounded-full bg-current transition-colors duration-300"></div>
                 <div className="ml-4">
-                  <p className="font-medium flex gap-5">Order Fulfilled <Package/></p>
+                  <p className="font-medium flex gap-5">
+                    <span className="text-foreground">Order Fulfilled</span>
+                    <Package className="text-foreground transition-colors duration-300"/>
+                  </p>
                   {order.status === "fulfilled" ||
                   order.status === "shipped" ? (
                     <p className="text-sm text-muted-foreground">
@@ -148,11 +154,14 @@ const Page = async ({
               </div>
 
               <div
-                className={`flex items-center ${order.status === "shipped" ? "text-[#E4335A]" : "text-gray-300"}`}
+                className={`flex items-center ${order.status === "shipped" ? "text-primary" : "text-muted-foreground/40"}`}
               >
-                <div className="w-4 h-4 rounded-full bg-current"></div>
+                <div className="w-4 h-4 rounded-full bg-current transition-colors duration-300"></div>
                 <div className="ml-4">
-                  <p className="font-medium flex gap-5">Order Shipped <Truck/></p>
+                  <p className="font-medium flex gap-5">
+                    <span className="text-foreground">Order Shipped</span>
+                    <Truck className="text-foreground transition-colors duration-300"/>
+                  </p>
                   {order.status === "shipped" ? (
                     <p className="text-sm text-muted-foreground">
                       Your order is on its way

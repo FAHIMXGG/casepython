@@ -97,7 +97,7 @@ function Review({ imgSrc, className, ...props }: ReviewProps) {
         POSSIBLE_ANIMATION_DELAYS[
         Math.floor(Math.random() * POSSIBLE_ANIMATION_DELAYS.length)
         ]
-    return <div className={cn('animate-fade-in rounded-[2.25rem] bg-white p-6 opacity-0 shadow-xl shadow-slate-900/5', className)}
+    return <div className={cn('animate-fade-in rounded-[2.25rem] bg-card dark:bg-[#1E293B] p-6 opacity-0 shadow-xl shadow-black/5 dark:shadow-black/20 transition-colors duration-300', className)}
         style={{ animationDelay }}
         {...props}>
         <Phone imgSrc={imgSrc} />
@@ -141,8 +141,8 @@ function ReviewGrid() {
                 />
 
             </>) : null}
-            <div className='pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-slate-100'></div>
-            <div className='pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-slate-100'></div>
+            <div className='pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-slate-100  to-transparent dark:from-[#191817] dark:via-[#191817]/60 dark:to-transparent transition-colors duration-300'></div>
+            <div className='pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-slate-100  to-transparent dark:from-[#191817] dark:via-[#191817]/60 dark:to-transparent transition-colors duration-300'></div>
     </div>
 }
 
@@ -154,7 +154,7 @@ const Reviews = () => {
                     aria-hidden='true'
                     src="/what-people-are-buying.png"
                     alt=""
-                    className='absolute select-none hidden xl:block -left-32 top-1/3'
+                    className='absolute select-none hidden xl:block -left-32 top-1/3 transition-opacity duration-300 ease-in-out'
                 />
                 <ReviewGrid />
             </MaxWidthWrapper>

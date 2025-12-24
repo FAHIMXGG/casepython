@@ -31,17 +31,18 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body className={recursive.className}>
-          <Navbar />
-          <main className="flex bg-[#fcebee42] flex-col min-h-[calc(100vh-3.5rem-1px)]">
-            <div className="flex-1 flex flex-col h-full">
-              <Provider>{children}</Provider>
-            </div>
-            <Footer />
-          </main>
-
-          <Toaster />
+          <Provider>
+            <Navbar />
+            <main className="flex bg-background flex-col min-h-[calc(100vh-3.5rem-1px)]">
+              <div className="flex-1 flex flex-col h-full">
+                {children}
+              </div>
+              <Footer />
+            </main>
+            <Toaster />
+          </Provider>
         </body>
       </html>
     </ClerkProvider>

@@ -139,7 +139,7 @@ export default function Page() {
   };
 
   return (
-    <div className="bg-slate-50 min-h-[calc(100vh-3.5rem-1px)] flex items-center justify-center py-12">
+    <div className="bg-background min-h-[calc(100vh-3.5rem-1px)] flex items-center justify-center py-12">
       <div className="w-full max-w-md">
         {/* Logo/Brand Section */}
         <div className="text-center mb-8">
@@ -153,11 +153,11 @@ export default function Page() {
               />
             </div>
           </Link>
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900 mb-2">
+          <h1 className="text-3xl font-bold tracking-tight text-foreground mb-2">
             Welcome back to{' '}
-            <span className="text-[#E4335A]">CasePython</span>
+            <span className="text-primary">CasePython</span>
           </h1>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-muted-foreground">
             Sign in to continue to your account
           </p>
         </div>
@@ -211,7 +211,7 @@ export default function Page() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground focus:outline-none"
                 >
                   {showPassword ? (
                     <EyeOff className="h-4 w-4" />

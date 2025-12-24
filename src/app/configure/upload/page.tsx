@@ -46,9 +46,9 @@ const Page = () => {
     const [isPending, startTransition] = useTransition()
     return (
         <div className={cn(
-            'relative h-full flex-1 my-16 w-full rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:rounded-2xl flex justify-center flex-col items-center',
+            'relative h-full flex-1 my-16 w-full rounded-xl bg-muted/50 p-2 ring-1 ring-inset ring-border lg:rounded-2xl flex justify-center flex-col items-center transition-all duration-300',
             {
-                'ring-blue-900/25 bg-blue-900/10': isDragOver,
+                'ring-primary/25 bg-primary/10': isDragOver,
             }
         )}>
             <div className='relative flex flex-1 flex-col items-center justify-center w-full'>
@@ -68,15 +68,15 @@ const Page = () => {
                             <input {...getInputProps()} />
                             {
                                 // eslint-disable-next-line jsx-a11y/alt-text
-                                isDragOver ? <MousePointerSquareDashed className='h-5 w-6 text-zinc-500 mb-2' /> : isUploading || isPending ? <Loader2 className='animate-spin h-6 w-6 text-zinc-500 mb-2' /> : <Image className='h-6 w-6 text-zinc-500 mb-2' />
+                                isDragOver ? <MousePointerSquareDashed className='h-5 w-6 text-muted-foreground mb-2 transition-colors duration-300' /> : isUploading || isPending ? <Loader2 className='animate-spin h-6 w-6 text-muted-foreground mb-2 transition-colors duration-300' /> : <Image className='h-6 w-6 text-muted-foreground mb-2 transition-colors duration-300' />
                             }
-                            <div className='flex flex-col justify-center mb-2 text-sm text-zinc-700'>
+                            <div className='flex flex-col justify-center mb-2 text-sm text-foreground'>
                                 {isUploading ? (
                                     <div className='flex flex-col items-center'>
                                         <p>Uploading...</p>
                                         <Progress
                                             value={uploadProgress}
-                                            className='mt-2 w-40 h-2 bg-gray-300'
+                                            className='mt-2 w-40 h-2 bg-muted'
                                         />
                                     </div>
                                 ) : isPending ? (
@@ -95,7 +95,7 @@ const Page = () => {
                                 )}
                             </div>
                             {isPending ? null : (
-                                <p className='text-xs text-zinc-500'>PNG, JPG, JPEG</p>
+                                <p className='text-xs text-muted-foreground'>PNG, JPG, JPEG</p>
                             )}
                         </div>
                     )}

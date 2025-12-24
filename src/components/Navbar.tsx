@@ -11,6 +11,7 @@ import {
   UserButton,
   useUser,
 } from "@clerk/nextjs";
+import { ThemeToggle } from "./ThemeToggle";
 
 const Navbar = () => {
   const { user } = useUser();
@@ -20,11 +21,11 @@ const Navbar = () => {
     process.env.NEXT_PUBLIC_ADMIN_EMAIL;
 
   return (
-    <nav className="sticky z-[100] h-14 inset-x-0 top-0 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all">
+    <nav className="sticky z-[100] h-14 inset-x-0 top-0 w-full border-b border-border bg-background/75 backdrop-blur-lg transition-all">
       <MaxWidthWrapper>
-        <div className="flex h-14 items-center justify-between border-b border-zinc-200">
+        <div className="flex h-14 items-center justify-between border-b border-border">
           <Link href="/" className="flex z-40 font-semibold">
-            case <span className="text-[#E4335A]">python</span>
+            case <span className="text-primary">python</span>
           </Link>
 
           <div className="h-full flex items-center space-x-4">
@@ -74,7 +75,7 @@ const Navbar = () => {
                 Sign up
               </Link>
 
-              <div className="h-8 w-px bg-zinc-200 hidden sm:block" />
+              <div className="h-8 w-px bg-border hidden sm:block" />
 
               <Link
                 href="/configure/upload"
@@ -87,6 +88,8 @@ const Navbar = () => {
                 <ArrowRight className="ml-1.5 h-5 w-5" />
               </Link>
             </SignedOut>
+
+            <ThemeToggle />
           </div>
         </div>
       </MaxWidthWrapper>

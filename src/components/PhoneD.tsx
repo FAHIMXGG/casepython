@@ -23,7 +23,7 @@ const Phone = ({ imgSrc, className, dark, ...props }: PhoneProps) => {
         : mounted && (resolvedTheme === "dark" || theme === "dark");
 
     const phoneTemplate = isDark 
-        ? "/phone-template-dark-edges.png"
+        ? "/phone-template-dark.png"
         : "/phone-template-white-edges.png";
 
     return (

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { cn } from "@/lib/utils"
 import { OrderStatus } from "@prisma/client"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { Check, ChevronsUpDown } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { changeOrderStatus } from "./actions"
@@ -23,11 +23,17 @@ const StatusDropdown = ({
     orderStatus: OrderStatus
   }) => {
     const router = useRouter()
+    const queryClient = useQueryClient()
   
     const { mutate } = useMutation({
       mutationKey: ['change-order-status'],
       mutationFn: changeOrderStatus,
-      onSuccess: () => router.refresh(),
+      onSuccess: () => {
+        // Invalidate orders queries to refetch data
+        queryClient.invalidateQueries({ queryKey: ['orders'] })
+        // Also refresh router for server components
+        router.refresh()
+      },
     })
   
     return (

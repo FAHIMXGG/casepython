@@ -8,11 +8,14 @@ import { Loader2 } from 'lucide-react'
 
 const Page = () => {
   const [configId, setConfigId] = useState<string | null>(null)
+  const [redirectUrl, setRedirectUrl] = useState<string | null>(null)
   const router = useRouter()
 
   useEffect(() => {
     const configurationId = localStorage.getItem('configurationId')
+    const storedRedirectUrl = localStorage.getItem('redirectUrl')
     if (configurationId) setConfigId(configurationId)
+    if (storedRedirectUrl) setRedirectUrl(storedRedirectUrl)
   }, [])
 
   const { data } = useQuery({
@@ -23,8 +26,14 @@ const Page = () => {
   })
 
   if (data?.success) {
-    if (configId) {
-      localStorage.removeItem('configurationId')
+    // Clean up localStorage
+    localStorage.removeItem('configurationId')
+    localStorage.removeItem('redirectUrl')
+    
+    // Redirect to stored URL, or preview page with configId, or home
+    if (redirectUrl) {
+      router.push(redirectUrl)
+    } else if (configId) {
       router.push(`/configure/preview?id=${configId}`)
     } else {
       router.push('/')

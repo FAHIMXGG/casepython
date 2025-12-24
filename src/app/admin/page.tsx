@@ -78,9 +78,8 @@ const Page = async () => {
   const MONTHLY_GOAL = 2500;
 
   return (
-    <div className="flex min-h-screen w-full bg-muted/40">
-      <div className="max-w-7xl w-full mx-auto flex flex-col sm:gap-4 sm:py-4">
-        <div className="flex flex-col gap-16">
+    <div className="max-w-7xl w-full mx-auto flex flex-col sm:gap-4 sm:py-4">
+      <div className="flex flex-col gap-16">
           <div className="grid gap-4 sm:grid-cols-2">
             <Card>
               <CardHeader className="pb-2">
@@ -120,47 +119,48 @@ const Page = async () => {
             </Card>
           </div>
 
-          <h1 className="text-4xl font-bold tracking-tight">Incoming orders</h1>
+          <h1 className="text-4xl font-bold tracking-tight lg:mt-16">Incoming orders</h1>
 
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Customer</TableHead>
-                <TableHead className="hidden sm:table-cell">Status</TableHead>
-                <TableHead className="hidden sm:table-cell">
-                  Purchase date
-                </TableHead>
-                <TableHead className="text-right">Amount</TableHead>
-              </TableRow>
-            </TableHeader>
-
-            <TableBody>
-              {orders.map((order) => (
-                <TableRow key={order.id} className="bg-accent">
-                  <TableCell>
-                    <div className="font-medium">
-                      {order.shippingAddress?.name}
-                    </div>
-                    <div className="hidden text-sm text-muted-foreground md:inline">
-                      {order.user.email}
-                    </div>
-                  </TableCell>
-                  <TableCell className="hidden sm:table-cell">
-                    <StatusDropdown id={order.id} orderStatus={order.status}/>
-                  </TableCell>
-                  <TableCell className="hidden md:table-cell">
-                    {order.createdAt.toLocaleDateString()}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    {formatPrice(order.amount)}
-                  </TableCell>
+          <div className="rounded-lg border border-border overflow-hidden bg-card">
+            <Table>
+              <TableHeader>
+                <TableRow className="border-b">
+                  <TableHead>Customer</TableHead>
+                  <TableHead className="hidden sm:table-cell">Status</TableHead>
+                  <TableHead className="hidden sm:table-cell">
+                    Purchase date
+                  </TableHead>
+                  <TableHead className="text-right">Amount</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+
+              <TableBody>
+                {orders.map((order) => (
+                  <TableRow key={order.id} className="bg-accent border-b last:border-b-0">
+                    <TableCell>
+                      <div className="font-medium">
+                        {order.shippingAddress?.name}
+                      </div>
+                      <div className="hidden text-sm text-muted-foreground md:inline">
+                        {order.user.email}
+                      </div>
+                    </TableCell>
+                    <TableCell className="hidden sm:table-cell">
+                      <StatusDropdown id={order.id} orderStatus={order.status}/>
+                    </TableCell>
+                    <TableCell className="hidden md:table-cell">
+                      {order.createdAt.toLocaleDateString()}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      {formatPrice(order.amount)}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </div>
       </div>
-    </div>
   );
 };
 

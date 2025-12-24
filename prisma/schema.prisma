@@ -106,3 +106,19 @@ model BillingAddress {
   phoneNumber String?
   orders      Order[]
 }
+
+model Coupon {
+  id          String   @id @default(uuid())
+  code        String   @unique
+  discount    Float    // Percentage discount (e.g., 10.0 for 10%)
+  description String?
+  isActive    Boolean  @default(true)
+  validFrom   DateTime @default(now())
+  validUntil DateTime?
+  maxUses     Int?     // Maximum number of times coupon can be used
+  usedCount   Int      @default(0) // Number of times coupon has been used
+  minAmount   Float?   // Minimum order amount required
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

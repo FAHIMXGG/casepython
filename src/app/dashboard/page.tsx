@@ -24,6 +24,13 @@ const Page = async () => {
     return notFound();
   }
 
+  const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
+
+  // Prevent admins from accessing the dashboard
+  if (user.primaryEmailAddress?.emailAddress === ADMIN_EMAIL) {
+    return notFound();
+  }
+
   const orders = await db.order.findMany({
     where: {
       userId: user.id,
@@ -49,9 +56,8 @@ const Page = async () => {
   });
 
   return (
-    <div className="flex min-h-screen w-full bg-muted/40 ">
-      <div className="max-w-7xl w-full mx-auto flex flex-col sm:gap-4 sm:py-4">
-        <div className="flex flex-col gap-16">
+    <div className="max-w-7xl w-full mx-auto flex flex-col sm:gap-4 sm:py-4">
+      <div className="flex flex-col gap-16">
           <h1 className="text-4xl font-bold tracking-tight lg:mt-16">
             Your orders
           </h1>
@@ -119,7 +125,6 @@ const Page = async () => {
           </Table>
         </div>
       </div>
-    </div>
   );
 };
 

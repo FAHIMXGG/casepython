@@ -8,8 +8,10 @@ import { Order } from "@prisma/client";
 
 export const createCheckoutSession = async ({
   configId,
+  couponCode,
 }: {
   configId: string;
+  couponCode?: string;
 }) => {
   const configuration = await db.configuration.findUnique({
     where: { id: configId },
@@ -48,6 +50,36 @@ export const createCheckoutSession = async ({
   if (material === "polycarbonate")
     price += PRODUCT_PRICE.material.polycarbonate;
 
+  // Apply coupon discount if provided
+  let discountAmount = 0;
+  let appliedCoupon = null;
+  if (couponCode) {
+    const coupon = await db.coupon.findUnique({
+      where: { code: couponCode.toUpperCase().trim() },
+    });
+
+    if (coupon && coupon.isActive) {
+      // Validate coupon
+      const now = new Date();
+      const isValid =
+        (!coupon.validUntil || new Date(coupon.validUntil) >= now) &&
+        (!coupon.validFrom || new Date(coupon.validFrom) <= now) &&
+        (!coupon.maxUses || coupon.usedCount < coupon.maxUses) &&
+        (!coupon.minAmount || price / 100 >= coupon.minAmount);
+
+      if (isValid) {
+        appliedCoupon = coupon;
+        discountAmount = (price * coupon.discount) / 100;
+        price = Math.max(0, price - discountAmount); // Ensure price doesn't go negative
+        // Round to nearest integer (Stripe requires integer cents)
+        price = Math.round(price);
+      }
+    }
+  }
+
+  // Ensure price is an integer for Stripe
+  price = Math.round(price);
+
   let order: Order | undefined;
 
   const existingOrder = await db.order.findFirst({
@@ -62,12 +94,31 @@ export const createCheckoutSession = async ({
 
   if (existingOrder) {
     order = existingOrder;
+    // Update order with new price and coupon info
+    await db.order.update({
+      where: { id: order.id },
+      data: {
+        amount: price / 100,
+      },
+    });
   } else {
     order = await db.order.create({
       data: {
         amount: price / 100,
         userId: user.id,
         configurationId: configuration.id,
+      },
+    });
+  }
+
+  // Increment coupon usage if applied
+  if (appliedCoupon) {
+    await db.coupon.update({
+      where: { id: appliedCoupon.id },
+      data: {
+        usedCount: {
+          increment: 1,
+        },
       },
     });
   }

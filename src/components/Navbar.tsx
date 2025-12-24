@@ -38,7 +38,7 @@ const Navbar = () => {
                 Admin 🛠️
               </Link>
             )}
-            { user && <Link
+            { user && !isAdmin && <Link
               href="/dashboard"
               className={buttonVariants({ size: "sm", variant: "ghost" })}
             >

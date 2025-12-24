@@ -18,6 +18,10 @@ import { toast } from 'sonner';
 import LoginModal from '@/components/LoginModal';
 import { useUser } from '@clerk/nextjs';
 import PhoneDeep from '@/components/PhoneDeep';
+import { Input } from '@/components/ui/input';
+import { validateCoupon } from './coupon-actions';
+import { savePendingOrder } from './pending-order-actions';
+import { X, Ticket } from 'lucide-react';
 
 const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
     const router = useRouter()
@@ -25,9 +29,26 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
     const  {user}  = useUser();
     //console.log(user)
     const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false)
+    const [couponCode, setCouponCode] = useState<string>("")
+    const [appliedCoupon, setAppliedCoupon] = useState<{
+      code: string;
+      discount: number;
+      description?: string | null;
+    } | null>(null)
+    const [couponError, setCouponError] = useState<string>("")
+    const [validatingCoupon, setValidatingCoupon] = useState<boolean>(false)
 
     const [showConfetti, setShowConfetti] = useState<boolean>(false)
     useEffect(() => setShowConfetti(true), [])
+
+    // Save pending order when user visits the page
+    useEffect(() => {
+        if (user && id) {
+            savePendingOrder(id).catch((error) => {
+                console.error('Failed to save pending order:', error)
+            })
+        }
+    }, [user, id])
 
     const { color, model, finish, material } = configuration
     const tw = COLORS.find((supportedColor) => supportedColor.value === color)?.tw
@@ -38,6 +59,12 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
         totalPrice += PRODUCT_PRICE.material.polycarbonate
     if(finish === 'textured')
         totalPrice += PRODUCT_PRICE.finish.textured
+
+    // Calculate discount
+    const discountAmount = appliedCoupon
+      ? (totalPrice * appliedCoupon.discount) / 100
+      : 0
+    const finalPrice = totalPrice - discountAmount
 
     const {mutate: createPaymentSession} = useMutation({
         mutationKey: ["get-checkout-session"],
@@ -57,10 +84,47 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
         }
     })
 
+    const handleApplyCoupon = async () => {
+        if (!couponCode.trim()) {
+            setCouponError("Please enter a coupon code")
+            return
+        }
+
+        setValidatingCoupon(true)
+        setCouponError("")
+
+        try {
+            const result = await validateCoupon(couponCode, totalPrice / 100)
+            
+            if (result.valid && result.coupon) {
+                setAppliedCoupon(result.coupon)
+                setCouponCode("")
+                toast.success(`Coupon "${result.coupon.code}" applied! ${result.coupon.discount}% off`)
+            } else {
+                setCouponError(result.error || "Invalid coupon code")
+                toast.error(result.error || "Invalid coupon code")
+            }
+        } catch (error) {
+            setCouponError("Error validating coupon")
+            toast.error("Error validating coupon")
+        } finally {
+            setValidatingCoupon(false)
+        }
+    }
+
+    const handleRemoveCoupon = () => {
+        setAppliedCoupon(null)
+        setCouponCode("")
+        setCouponError("")
+        toast.success("Coupon removed")
+    }
+
     const handleCheckout = () => {
         if (user) {
-            //console.log(user)
-            createPaymentSession({configId: id})
+            createPaymentSession({
+                configId: id,
+                couponCode: appliedCoupon?.code,
+            })
         }
         else {
             localStorage.setItem('configurationId', id)
@@ -126,11 +190,84 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
                                     <p className='font-medium text-foreground transition-colors duration-300'>{formatPrice(PRODUCT_PRICE.material.polycarbonate / 100)}</p>
                                 </div>) : null}
 
+                                {appliedCoupon ? (
+                                    <div className='flex items-center justify-between py-1 mt-2'>
+                                        <div className='flex items-center gap-2'>
+                                            <p className='text-muted-foreground transition-colors duration-300'>Discount ({appliedCoupon.code})</p>
+                                            <Button
+                                                variant="ghost"
+                                                size="icon"
+                                                className='h-4 w-4 p-0'
+                                                onClick={handleRemoveCoupon}
+                                            >
+                                                <X className='h-3 w-3' />
+                                            </Button>
+                                        </div>
+                                        <p className='font-medium text-green-600 dark:text-green-400 transition-colors duration-300'>
+                                            -{formatPrice(discountAmount / 100)}
+                                        </p>
+                                    </div>
+                                ) : null}
+
                                 <div className='my-2 h-px bg-border transition-colors duration-300'/>
                                 <div className='flex items-center justify-between py-2 '>
                                     <p className='font-semibold text-foreground transition-colors duration-300'>Order total</p>
-                                    <p className='font-semibold text-foreground transition-colors duration-300'>{formatPrice(totalPrice / 100)}</p>
+                                    <p className='font-semibold text-foreground transition-colors duration-300'>{formatPrice(finalPrice / 100)}</p>
                                 </div>
+                            </div>
+
+                            {/* Coupon Code Input */}
+                            <div className='mt-4 pt-4 border-t border-border'>
+                                {appliedCoupon ? (
+                                    <div className='flex items-center justify-between p-3 bg-green-500/10 rounded-lg border border-green-500/20'>
+                                        <div className='flex items-center gap-2'>
+                                            <Ticket className='h-4 w-4 text-green-600 dark:text-green-400' />
+                                            <div>
+                                                <p className='text-sm font-medium text-foreground'>{appliedCoupon.code}</p>
+                                                {appliedCoupon.description && (
+                                                    <p className='text-xs text-muted-foreground'>{appliedCoupon.description}</p>
+                                                )}
+                                            </div>
+                                        </div>
+                                        <Button
+                                            variant="ghost"
+                                            size="sm"
+                                            onClick={handleRemoveCoupon}
+                                            className='h-8'
+                                        >
+                                            <X className='h-4 w-4' />
+                                        </Button>
+                                    </div>
+                                ) : (
+                                    <div className='space-y-2'>
+                                        <div className='flex gap-2'>
+                                            <Input
+                                                placeholder="Enter coupon code"
+                                                value={couponCode}
+                                                onChange={(e) => {
+                                                    setCouponCode(e.target.value.toUpperCase())
+                                                    setCouponError("")
+                                                }}
+                                                onKeyDown={(e) => {
+                                                    if (e.key === "Enter") {
+                                                        handleApplyCoupon()
+                                                    }
+                                                }}
+                                                className='flex-1'
+                                            />
+                                            <Button
+                                                onClick={handleApplyCoupon}
+                                                disabled={validatingCoupon || !couponCode.trim()}
+                                                variant="outline"
+                                            >
+                                                {validatingCoupon ? "Applying..." : "Apply"}
+                                            </Button>
+                                        </div>
+                                        {couponError && (
+                                            <p className='text-sm text-red-600 dark:text-red-400'>{couponError}</p>
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         </div>
 

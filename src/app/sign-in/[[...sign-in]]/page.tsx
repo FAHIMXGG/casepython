@@ -1,7 +1,7 @@
 'use client';
 
 import { useSignIn } from '@clerk/nextjs';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -35,6 +35,8 @@ export default function Page() {
     general: '',
   });
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get('redirect') || '/';
 
   if (!signIn) return null;
 
@@ -57,7 +59,7 @@ export default function Page() {
       if (signInAttempt.status === 'complete') {
         await setActive({ session: signInAttempt.createdSessionId });
         toast.success('Login successful!');
-        router.push('/');
+        router.push(redirectUrl);
       } else {
         // Handle other statuses like 'needs-second-factor', etc.
         toast.warning('Additional verification required');
@@ -111,11 +113,15 @@ export default function Page() {
   };
 
   const signInWith = async (strategy: OAuthStrategy) => {
+    // Store redirect URL for OAuth callback
+    if (redirectUrl !== '/') {
+      localStorage.setItem('redirectUrl', redirectUrl)
+    }
     return signIn
       .authenticateWithRedirect({
         strategy,
         redirectUrl: '/sign-up/sso-callback',
-        redirectUrlComplete: '/',
+        redirectUrlComplete: '/auth-callback',
       })
       .then((res) => {
         console.log(res);
@@ -184,7 +190,7 @@ export default function Page() {
                   onChange={(e) => setEmailAddress(e.target.value)}
                 />
                 {errors.email && (
-                  <div className="text-sm text-red-600">{errors.email}</div>
+                  <div className="text-sm text-destructive">{errors.email}</div>
                 )}
               </div>
             </div>
@@ -221,7 +227,7 @@ export default function Page() {
                 </button>
               </div>
               {errors.password && (
-                <div className="text-sm text-red-600">{errors.password}</div>
+                <div className="text-sm text-destructive">{errors.password}</div>
               )}
             </div>
 
@@ -230,7 +236,7 @@ export default function Page() {
             </Button>
 
             {errors.general && (
-              <div className="mt-2 text-sm text-red-600 text-center">
+              <div className="mt-2 text-sm text-destructive text-center">
                 {errors.general}
               </div>
             )}
@@ -265,7 +271,7 @@ export default function Page() {
           </div>
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{' '}
-            <Link href="sign-up" className="underline underline-offset-4">
+            <Link href={`/sign-up${redirectUrl !== '/' ? `?redirect=${encodeURIComponent(redirectUrl)}` : ''}`} className="underline underline-offset-4">
               Sign up
             </Link>
           </div>

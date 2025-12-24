@@ -1,7 +1,7 @@
 'use client';
 
 import { useSignUp } from '@clerk/nextjs';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -47,6 +47,8 @@ export default function SignUpPage() {
     general: '',
   });
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get('redirect') || '/';
 
   if (!signUp || !isLoaded) return null;
 
@@ -168,7 +170,7 @@ export default function SignUpPage() {
       if (completeSignUp.status === 'complete') {
         await setActive({ session: completeSignUp.createdSessionId });
         toast.success('Account created successfully!');
-        router.push('/');
+        router.push(redirectUrl);
       } else {
         setErrors({
           general: 'Verification incomplete. Please try again.',
@@ -203,7 +205,7 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="bg-slate-50 min-h-[calc(100vh-3.5rem-1px)] flex items-center justify-center py-12">
+    <div className="bg-background min-h-[calc(100vh-3.5rem-1px)] flex items-center justify-center py-12">
       <div className="w-full max-w-md">
         {/* Logo/Brand Section */}
         <div className="text-center mb-8">
@@ -217,11 +219,11 @@ export default function SignUpPage() {
               />
             </div>
           </Link>
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900 mb-2">
+          <h1 className="text-3xl font-bold tracking-tight text-foreground mb-2">
             Create your{' '}
-            <span className="text-[#E4335A]">CasePython</span> account
+            <span className="text-primary">CasePython</span> account
           </h1>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-muted-foreground">
             Sign up to get started with custom phone cases
           </p>
         </div>
@@ -254,7 +256,7 @@ export default function SignUpPage() {
                         onChange={(e) => setFirstName(e.target.value)}
                       />
                       {errors.firstName && (
-                        <div className="text-sm text-red-600">{errors.firstName}</div>
+                        <div className="text-sm text-destructive">{errors.firstName}</div>
                       )}
                     </div>
                     <div className="grid gap-2">
@@ -269,7 +271,7 @@ export default function SignUpPage() {
                         onChange={(e) => setLastName(e.target.value)}
                       />
                       {errors.lastName && (
-                        <div className="text-sm text-red-600">{errors.lastName}</div>
+                        <div className="text-sm text-destructive">{errors.lastName}</div>
                       )}
                     </div>
                   </div>
@@ -285,7 +287,7 @@ export default function SignUpPage() {
                       onChange={(e) => setUsername(e.target.value)}
                     />
                     {errors.username && (
-                      <div className="text-sm text-red-600">{errors.username}</div>
+                      <div className="text-sm text-destructive">{errors.username}</div>
                     )}
                   </div>
                   <div className="grid gap-2 mb-5">
@@ -300,7 +302,7 @@ export default function SignUpPage() {
                       onChange={(e) => setEmailAddress(e.target.value)}
                     />
                     {errors.email && (
-                      <div className="text-sm text-red-600">{errors.email}</div>
+                      <div className="text-sm text-destructive">{errors.email}</div>
                     )}
                   </div>
                 </div>
@@ -319,7 +321,7 @@ export default function SignUpPage() {
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground focus:outline-none"
                     >
                       {showPassword ? (
                         <EyeOff className="h-4 w-4" />
@@ -329,7 +331,7 @@ export default function SignUpPage() {
                     </button>
                   </div>
                   {errors.password && (
-                    <div className="text-sm text-red-600">{errors.password}</div>
+                    <div className="text-sm text-destructive">{errors.password}</div>
                   )}
                 </div>
 
@@ -338,7 +340,7 @@ export default function SignUpPage() {
                 </Button>
 
                 {errors.general && (
-                  <div className="mt-2 text-sm text-red-600 text-center">
+                  <div className="mt-2 text-sm text-destructive text-center">
                     {errors.general}
                   </div>
                 )}
@@ -359,9 +361,9 @@ export default function SignUpPage() {
                       maxLength={6}
                     />
                     {errors.code && (
-                      <div className="text-sm text-red-600">{errors.code}</div>
+                      <div className="text-sm text-destructive">{errors.code}</div>
                     )}
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-muted-foreground">
                       Check your email for the verification code
                     </p>
                   </div>
@@ -371,7 +373,7 @@ export default function SignUpPage() {
                   </Button>
 
                   {errors.general && (
-                    <div className="mt-2 text-sm text-red-600 text-center">
+                    <div className="mt-2 text-sm text-destructive text-center">
                       {errors.general}
                     </div>
                   )}
@@ -411,7 +413,7 @@ export default function SignUpPage() {
 
             <div className="mt-4 text-center text-sm">
               Already have an account?{' '}
-              <Link href="/sign-in" className="underline underline-offset-4">
+              <Link href={`/sign-in${redirectUrl !== '/' ? `?redirect=${encodeURIComponent(redirectUrl)}` : ''}`} className="underline underline-offset-4">
                 Sign in
               </Link>
             </div>

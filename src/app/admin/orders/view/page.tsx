@@ -210,7 +210,7 @@ const Page = async ({ searchParams }: PageProps) => {
                     {order.configuration.finish || "N/A"}
                   </p>
                 </div>
-                <div className="pt-4 border-t border-border space-y-2">
+                <div className="pt-4 border-t border-border">
                   <DownloadPDFButton
                     orderId={order.id}
                     model={order.configuration.model || "Unknown"}
@@ -220,17 +220,6 @@ const Page = async ({ searchParams }: PageProps) => {
                     material={order.configuration.material || undefined}
                     finish={order.configuration.finish || undefined}
                   />
-                  <Link
-                    href={`/configure/preview?id=${order.configuration.id}`}
-                    target="_blank"
-                    className={buttonVariants({
-                      variant: "outline",
-                      size: "sm",
-                      className: "w-full",
-                    })}
-                  >
-                    View Full Design
-                  </Link>
                 </div>
               </div>
             </div>

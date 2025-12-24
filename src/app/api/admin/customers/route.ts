@@ -2,6 +2,8 @@ import { db } from "@/db";
 import { currentUser } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = 'force-dynamic';
+
 const ITEMS_PER_PAGE = 15;
 
 export async function GET(request: NextRequest) {

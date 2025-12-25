@@ -49,7 +49,7 @@ export default function Home() {
                   <img className="inline-block h-10 w-10 rounded-full ring-2 ring-border object-cover transition-opacity duration-300 ease-in-out" src="/users/user-5.jpg" alt="" />
                 </div>
 
-                <div className="flex flex-col justify-between item-center sm:stems-start">
+                <div className="flex flex-col justify-between items-center sm:items-start">
                   <div className="flex gap-0.5">
                     <Star className="h-4 w-4 text-primary fill-primary" />
                     <Star className="h-4 w-4 text-primary fill-primary" />
@@ -64,11 +64,11 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="col-span-full lg:col-span-1 w-full flex justify-center px-8 sm:px-16 md:px-0 mt-32 lg:mx-0 lg:mt-20 h-fit">
+          <div className="col-span-full lg:col-span-1 w-full flex justify-center px-8 sm:px-16 md:px-0 mt-32 lg:mx-0 lg:mt-20 xl:mt-16 2xl:mt-20 h-fit">
             <div className="relative md:max-w-xl">
-              <img src="/your-image.png" className="absolute w-40 lg:w-52 left-56 -top-20 select-npne hidden sm:block lg:hidden xl:block transition-opacity duration-300 ease-in-out" alt="" />
+              <img src="/your-image.png" className="absolute w-40 lg:w-52 xl:w-44 2xl:w-52 left-56 xl:left-44 2xl:left-56 -top-20 xl:-top-16 2xl:-top-20 select-none hidden sm:block lg:hidden xl:block transition-opacity duration-300 ease-in-out" alt="" />
               <img src="/line.png" className="absolute w-20 -left-6 -bottom-6 select-none transition-opacity duration-300 ease-in-out" alt="" />
-              <PhoneD className="w-64" imgSrc="https://anuzia5kxh.ufs.sh/f/wl7CbeyNKgIu0y5Ptjz5x4Xe7T2MzawWQZA3Vg1SDnlhb9id" />
+              <PhoneD className="w-64 xl:w-56 2xl:w-64" imgSrc="https://anuzia5kxh.ufs.sh/f/wl7CbeyNKgIu0y5Ptjz5x4Xe7T2MzawWQZA3Vg1SDnlhb9id" />
             </div>
           </div>
         </MaxWidthWrapper>
@@ -76,7 +76,7 @@ export default function Home() {
 
       <section className="bg-[#F1F5F9] dark:bg-[#191817] py-24">
         <MaxWidthWrapper className="flex flex-col items-center gap-16 sm:gap-32">
-          <div className="flex flex-col lg:flex-row item-center gap-4 sm-gap-6">
+          <div className="flex flex-col lg:flex-row items-center gap-4 sm:gap-6">
             <h2 className="order-1 mt-2 tracking-tight text-center text-balance !leading-tight font-bold text-5xl md:text-6xl text-foreground transition-colors duration-300">
               What our <span className="relative px-2 ">Customers <Icons.underline className="hidden sm:block pointer-events-none absolute inset-x-0 -bottom-6 text-primary transition-colors duration-300" /> </span> say
             </h2>

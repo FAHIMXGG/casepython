@@ -5,7 +5,7 @@ import { OrderStatus } from "@prisma/client";
 
 export const dynamic = 'force-dynamic';
 
-const ITEMS_PER_PAGE = 15;
+const ITEMS_PER_PAGE = 10;
 
 export async function GET(request: NextRequest) {
   try {

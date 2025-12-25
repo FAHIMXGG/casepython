@@ -28,7 +28,15 @@ interface SidebarProps {
   notificationCount?: number
 }
 
-const adminNavItems = [
+interface NavItem {
+  title: string
+  href: string
+  icon: React.ComponentType<{ className?: string }>
+  description: string
+  showNotification?: boolean
+}
+
+const adminNavItems: NavItem[] = [
   {
     title: "Overview",
     href: "/admin",
@@ -61,7 +69,7 @@ const adminNavItems = [
   },
 ]
 
-const userNavItems = [
+const userNavItems: NavItem[] = [
   {
     title: "Overview",
     href: "/dashboard",
@@ -144,11 +152,15 @@ export function Sidebar({ isAdmin, userEmail, userName, notificationCount = 0 }:
 
   return (
     <>
-      {/* Mobile Overlay - Black background when sidebar is open */}
+      {/* Mobile Overlay - Solid opaque background when sidebar is open */}
       {isOpen && isMobile && (
         <div
-          className="fixed inset-0 bg-black/80 z-40 lg:hidden transition-opacity duration-300"
+          className="fixed inset-0 z-[85] lg:hidden transition-opacity duration-300"
           onClick={toggleSidebar}
+          style={{ 
+            backgroundColor: 'hsl(var(--background))',
+            opacity: 1
+          }}
         />
       )}
 
@@ -157,7 +169,7 @@ export function Sidebar({ isAdmin, userEmail, userName, notificationCount = 0 }:
         variant="ghost"
         size="icon"
         className={cn(
-          "fixed top-4 z-50 hidden lg:flex transition-all duration-300",
+          "fixed top-4 z-[95] hidden lg:flex transition-all duration-300",
           isOpen ? "left-[15.5rem]" : "left-20",
           "bg-card border border-border shadow-sm hover:bg-accent rounded-full"
         )}
@@ -173,11 +185,14 @@ export function Sidebar({ isAdmin, userEmail, userName, notificationCount = 0 }:
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed lg:sticky top-0 left-0 h-screen z-50 flex flex-col border-r border-border bg-card transition-all duration-300 ease-in-out",
+          "fixed lg:sticky top-0 left-0 h-screen z-[90] flex flex-col border-r border-border bg-card transition-all duration-300 ease-in-out",
           sidebarWidth,
           sidebarTranslate,
-          "overflow-hidden"
+          "overflow-hidden isolate",
+          "lg:bg-card bg-card backdrop-blur-none",
+          "pt-14 lg:pt-0"
         )}
+        style={{ isolation: 'isolate', backgroundColor: 'var(--card)' }}
       >
         {/* Close Button on Right Edge of Sidebar - Mobile when open */}
         {isOpen && isMobile && (
@@ -185,7 +200,7 @@ export function Sidebar({ isAdmin, userEmail, userName, notificationCount = 0 }:
             variant="ghost"
             size="icon"
             className={cn(
-              "absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-[60] lg:hidden",
+              "absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-[95] lg:hidden",
               "bg-background border border-border shadow-xl",
               "rounded-full h-12 w-12",
               "hover:bg-accent transition-all duration-300",
@@ -318,7 +333,7 @@ export function Sidebar({ isAdmin, userEmail, userName, notificationCount = 0 }:
           variant="ghost"
           size="icon"
           className={cn(
-            "fixed left-0 top-1/2 -translate-y-1/2 z-[60] lg:hidden",
+            "fixed left-0 top-1/2 -translate-y-1/2 z-[95] lg:hidden",
             "bg-card/95 backdrop-blur-sm border-r border-border shadow-xl",
             "rounded-r-lg rounded-l-none h-14 w-10",
             "hover:bg-card transition-all duration-300",

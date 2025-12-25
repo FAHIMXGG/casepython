@@ -15,11 +15,11 @@ export function CouponPageClient({ coupons }: CouponPageClientProps) {
 
   return (
     <>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <h1 className="text-4xl font-bold tracking-tight lg:mt-16">
           Coupon Management
         </h1>
-        <Button onClick={() => setDialogOpen(true)}>
+        <Button onClick={() => setDialogOpen(true)} className="w-full sm:w-auto">
           <Plus className="mr-2 h-4 w-4" />
           Create Coupon
         </Button>

@@ -28,7 +28,7 @@ export default async function DashboardLayout({
           userEmail={user.primaryEmailAddress?.emailAddress}
           userName={user.firstName || user.username || undefined}
         />
-        <main className="flex-1 overflow-auto lg:ml-0 transition-all duration-300">
+        <main className="flex-1 overflow-auto lg:ml-0 transition-all duration-300 px-4 py-4 lg:px-0 lg:py-0">
           {children}
         </main>
       </div>

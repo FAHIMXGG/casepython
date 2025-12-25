@@ -1,6 +1,13 @@
 import { db } from "@/db";
 import { notFound } from "next/navigation";
 import DesignConfigurator from "./DesignConfigurator";
+import { constructMetadata } from "@/lib/utils";
+
+export const metadata = constructMetadata({
+  title: "Design Your Custom Phone Case | CasePython",
+  description: "Design and customize your phone case. Choose your phone model, case color, and adjust your image to create the perfect custom phone case.",
+  image: "/thumbnail.png",
+});
 
 interface PageProps {
     searchParams: {

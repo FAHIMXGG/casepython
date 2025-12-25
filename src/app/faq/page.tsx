@@ -2,6 +2,13 @@ import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
+import { constructMetadata } from "@/lib/utils";
+
+export const metadata = constructMetadata({
+  title: "FAQ - Frequently Asked Questions | CasePython Help Center",
+  description: "Find answers to common questions about custom phone cases, ordering, shipping, warranty, and more. Get help with your CasePython order.",
+  image: "/thumbnail.png",
+});
 
 const faqs = [
   {

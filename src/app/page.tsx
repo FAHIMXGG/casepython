@@ -6,6 +6,13 @@ import { buttonVariants } from "@/components/ui/button";
 import { Icons } from "@/components/ui/Icons";
 import { ArrowRight, Check, Star, Upload, Palette, Smartphone, Shield, Lock, Truck, Clock, HelpCircle, Zap, Award } from "lucide-react";
 import Link from "next/link";
+import { constructMetadata } from "@/lib/utils";
+
+export const metadata = constructMetadata({
+  title: "CasePython - Custom Phone Cases | Create Your Unique Design",
+  description: "Create custom high-quality phone cases with your favorite images. Premium silicone cases with 5-year print guarantee. Support for iPhone 12, 13, 14, and 15. Fast shipping and wireless charging compatible.",
+  image: "/thumbnail.png",
+});
 
 export default function Home() {
   return (
@@ -272,7 +279,8 @@ export default function Home() {
           </div>
           <div className="mx-auto max-w-6xl px-6 lg:px-8">
             <div className="relative flex flex-col items-center md:grid grid-cols-2 gap-40">
-              <img src="/arrow.png" className="absolute top-[25rem] md:top-1/2 -translate-y-1/2 z-10 left-1/2 -translate-x-1/2 rotate-90 md:rotate-0 transition-opacity duration-300 ease-in-out" alt="" />
+              <img src="/arrow.png" className="dark:hidden absolute top-[25rem] md:top-1/2 -translate-y-1/2 z-10 left-1/2 -translate-x-1/2 rotate-90 md:rotate-0 transition-opacity duration-300 ease-in-out" alt="" />
+              <img src="/arrow-dark.png" className="hidden dark:block absolute top-[25rem] md:top-1/2 -translate-y-1/2 z-10 left-1/2 -translate-x-1/2 rotate-90 md:rotate-0 transition-opacity duration-300 ease-in-out" alt="" />
               <div className='relative h-80 md:h-full w-full md:justify-self-end max-w-sm rounded-xl bg-muted ring-inset ring-border lg:rounded-2xl'>
                 <img
                   src='https://anuzia5kxh.ufs.sh/f/wl7CbeyNKgIu2hNkbz5HTjZwRvP7QmLMaV3W6duOp5fDYsSn'

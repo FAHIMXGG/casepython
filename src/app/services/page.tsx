@@ -2,6 +2,13 @@ import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { Check, Shield, Smartphone, Zap, Palette, Award } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
+import { constructMetadata } from "@/lib/utils";
+
+export const metadata = constructMetadata({
+  title: "Services - Custom Phone Case Services & Warranty | CasePython",
+  description: "Learn about CasePython's premium custom phone case services, 5-year print guarantee, warranty coverage, and what makes our cases special.",
+  image: "/thumbnail.png",
+});
 
 export default function Services() {
   return (

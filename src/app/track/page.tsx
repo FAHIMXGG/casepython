@@ -4,10 +4,16 @@ import { notFound } from "next/navigation";
 import React from "react";
 import { OrderStatus } from "@prisma/client";
 import Image from "next/image";
-import { cn, formatPrice } from "@/lib/utils";
+import { cn, formatPrice, constructMetadata } from "@/lib/utils";
 import { COLORS } from "@/validators/option-validator";
 import {Package, PackageOpen, Truck,} from "lucide-react";
 import PhoneD from "@/components/PhoneD";
+
+export const metadata = constructMetadata({
+  title: "Track Your Order | CasePython Order Tracking",
+  description: "Track your custom phone case order status. View order details, shipping information, and delivery timeline for your CasePython order.",
+  image: "/thumbnail.png",
+});
 
 const LABEL_MAP: Record<OrderStatus, string> = {
   awaiting_shipment: "Awaiting Shipment",

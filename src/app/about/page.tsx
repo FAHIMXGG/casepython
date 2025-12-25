@@ -1,5 +1,12 @@
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { Check, Heart, Shield, Sparkles } from "lucide-react";
+import { constructMetadata } from "@/lib/utils";
+
+export const metadata = constructMetadata({
+  title: "About CasePython - Our Story & Mission | Custom Phone Cases",
+  description: "Learn about CasePython's mission to create unique, high-quality custom phone cases. Discover our story, values, and commitment to protecting your memories with premium materials and exceptional service.",
+  image: "/thumbnail.png",
+});
 
 export default function About() {
   return (

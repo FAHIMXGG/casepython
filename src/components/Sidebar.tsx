@@ -16,6 +16,8 @@ import {
   User,
   Grid3x3,
   Menu,
+  HelpCircle,
+  MessageSquare,
 } from "lucide-react"
 import { Button } from "./ui/button"
 
@@ -23,6 +25,7 @@ interface SidebarProps {
   isAdmin: boolean
   userEmail?: string
   userName?: string
+  notificationCount?: number
 }
 
 const adminNavItems = [
@@ -49,6 +52,12 @@ const adminNavItems = [
     href: "/admin/customers",
     icon: Users,
     description: "View customer information",
+  },
+  {
+    title: "Support Messages",
+    href: "/admin/support",
+    icon: MessageSquare,
+    description: "View and respond to support tickets",
   },
 ]
 
@@ -77,14 +86,36 @@ const userNavItems = [
     icon: History,
     description: "View all your past orders",
   },
+  {
+    title: "Help & Support",
+    href: "/dashboard/help-support",
+    icon: HelpCircle,
+    description: "Get help and support",
+    showNotification: true,
+  },
 ]
 
-export function Sidebar({ isAdmin, userEmail, userName }: SidebarProps) {
+export function Sidebar({ isAdmin, userEmail, userName, notificationCount = 0 }: SidebarProps) {
   const pathname = usePathname()
   const navItems = isAdmin ? adminNavItems : userNavItems
   const [isOpen, setIsOpen] = useState(true)
   const [isMobile, setIsMobile] = useState(false)
   const [mounted, setMounted] = useState(false)
+  const [unreadCount, setUnreadCount] = useState(notificationCount)
+
+  // Fetch notification count for help & support
+  useEffect(() => {
+    if (!isAdmin) {
+      fetch('/api/support/notifications')
+        .then(res => res.json())
+        .then(data => {
+          if (data.count !== undefined) {
+            setUnreadCount(data.count)
+          }
+        })
+        .catch(() => {})
+    }
+  }, [isAdmin, pathname])
 
   useEffect(() => {
     setMounted(true)
@@ -257,11 +288,23 @@ export function Sidebar({ isAdmin, userEmail, userName }: SidebarProps) {
                 
                 {(isOpen || isMobile) && (
                   <div className="flex-1 min-w-0">
-                    <div className="font-medium">{item.title}</div>
+                    <div className="font-medium flex items-center gap-2">
+                      {item.title}
+                      {!isAdmin && item.showNotification && unreadCount > 0 && (
+                        <span className="bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center min-w-[20px]">
+                          {unreadCount > 99 ? '99+' : unreadCount}
+                        </span>
+                      )}
+                    </div>
                     <div className="text-xs text-muted-foreground mt-0.5">
                       {item.description}
                     </div>
                   </div>
+                )}
+                {!isOpen && !isMobile && !isAdmin && item.showNotification && unreadCount > 0 && (
+                  <span className="absolute top-1 right-1 bg-red-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center min-w-[16px] text-[10px]">
+                    {unreadCount > 9 ? '9+' : unreadCount}
+                  </span>
                 )}
               </Link>
             )

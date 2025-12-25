@@ -59,6 +59,7 @@ model User {
   id                String @id @default(uuid())
   email             String
   order            Order[]
+  supportTickets    SupportTicket[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -118,6 +119,38 @@ model Coupon {
   maxUses     Int?     // Maximum number of times coupon can be used
   usedCount   Int      @default(0) // Number of times coupon has been used
   minAmount   Float?   // Minimum order amount required
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum SupportTicketStatus {
+  open
+  in_progress
+  resolved
+}
+
+model SupportTicket {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  email       String
+  name        String
+  subject     String
+  status      SupportTicketStatus @default(open)
+  messages    SupportMessage[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SupportMessage {
+  id          String   @id @default(uuid())
+  ticketId    String
+  ticket      SupportTicket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  message     String
+  isFromAdmin Boolean  @default(false)
+  isRead      Boolean  @default(false)
   
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

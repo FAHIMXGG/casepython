@@ -74,7 +74,7 @@ export default function Contact() {
                     href="mailto:support@casepython.com"
                     className="text-primary hover:underline"
                   >
-                    support@casepython.com
+                    ahasanulhaquefahimx@gmail.com
                   </a>
                 </div>
 

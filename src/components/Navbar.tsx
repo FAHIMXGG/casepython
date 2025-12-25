@@ -3,6 +3,7 @@
 import React from "react";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { buttonVariants } from "./ui/button";
 import { ArrowRight, Menu, X } from "lucide-react";
 import {
@@ -16,6 +17,7 @@ import { useState } from "react";
 
 const Navbar = () => {
   const { user } = useUser();
+  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   //console.log(user?.primaryEmailAddress?.emailAddress);
   const isAdmin =
@@ -59,18 +61,21 @@ const Navbar = () => {
           <div className="h-full flex items-center space-x-4">
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-1">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={buttonVariants({
-                    size: "sm",
-                    variant: "ghost",
-                  })}
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                const isActive = pathname === link.href;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={buttonVariants({
+                      size: "sm",
+                      variant: isActive ? "secondary" : "ghost",
+                    })}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
             </div>
 
             <SignedIn>
@@ -126,20 +131,53 @@ const Navbar = () => {
         {mobileMenuOpen && (
           <div className="md:hidden border-t border-border bg-background">
             <div className="flex flex-col py-4 space-y-2">
-              {navLinks.map((link) => (
+              {navLinks.map((link) => {
+                const isActive = pathname === link.href;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={buttonVariants({
+                      size: "sm",
+                      variant: isActive ? "secondary" : "ghost",
+                      className: "w-full justify-start",
+                    })}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+              
+              <SignedIn>
+                {!isAdmin && (
+                  <Link
+                    href="/configure/upload"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={buttonVariants({
+                      size: "sm",
+                      className: "w-full justify-start items-center gap-1",
+                    })}
+                  >
+                    Create case
+                    <ArrowRight className="ml-1.5 h-5 w-5" />
+                  </Link>
+                )}
+              </SignedIn>
+
+              <SignedOut>
                 <Link
-                  key={link.href}
-                  href={link.href}
+                  href="/configure/upload"
                   onClick={() => setMobileMenuOpen(false)}
                   className={buttonVariants({
                     size: "sm",
-                    variant: "ghost",
-                    className: "w-full justify-start",
+                    className: "w-full justify-start items-center gap-1",
                   })}
                 >
-                  {link.label}
+                  Create case
+                  <ArrowRight className="ml-1.5 h-5 w-5" />
                 </Link>
-              ))}
+              </SignedOut>
             </div>
           </div>
         )}

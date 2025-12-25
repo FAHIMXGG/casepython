@@ -1,5 +1,5 @@
 import { currentUser } from "@clerk/nextjs/server"
-import { notFound } from "next/navigation"
+import { redirect } from "next/navigation"
 import { Sidebar } from "@/components/Sidebar"
 
 export default async function AdminLayout({
@@ -10,8 +10,12 @@ export default async function AdminLayout({
   const user = await currentUser()
   const ADMIN_EMAIL = process.env.ADMIN_EMAIL
 
-  if (!user || user.primaryEmailAddress?.emailAddress !== ADMIN_EMAIL) {
-    return notFound()
+  if (!user) {
+    redirect('/sign-in?redirect=/admin')
+  }
+
+  if (user.primaryEmailAddress?.emailAddress !== ADMIN_EMAIL) {
+    redirect('/sign-in?redirect=/admin')
   }
 
   return (

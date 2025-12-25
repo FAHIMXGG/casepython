@@ -4,7 +4,7 @@ import PhoneD from "@/components/PhoneD";
 import Reviews from "@/components/Reviews";
 import { buttonVariants } from "@/components/ui/button";
 import { Icons } from "@/components/ui/Icons";
-import { ArrowRight, Check,  Star } from "lucide-react";
+import { ArrowRight, Check, Star, Upload, Palette, Smartphone, Shield, Lock, Truck, Clock, HelpCircle, Zap, Award } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
@@ -70,6 +70,52 @@ export default function Home() {
               <img src="/your-image-dark.png" className="absolute w-40 lg:w-52 xl:w-44 2xl:w-52 left-56 xl:left-44 2xl:left-56 -top-20 xl:-top-16 2xl:-top-20 select-none hidden sm:dark:block lg:hidden xl:dark:block transition-opacity duration-300 ease-in-out" alt="" />
               <img src="/line.png" className="absolute w-20 -left-6 -bottom-6 select-none transition-opacity duration-300 ease-in-out" alt="" />
               <PhoneD className="w-64 xl:w-56 2xl:w-64" imgSrc="https://anuzia5kxh.ufs.sh/f/wl7CbeyNKgIu0y5Ptjz5x4Xe7T2MzawWQZA3Vg1SDnlhb9id" />
+            </div>
+          </div>
+        </MaxWidthWrapper>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="bg-[#F1F5F9] dark:bg-[#191817] py-24">
+        <MaxWidthWrapper>
+          <div className="mx-auto max-w-2xl text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
+              How It <span className="bg-primary px-2 text-primary-foreground">Works</span>
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Creating your custom phone case is simple and takes just a few minutes
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto px-6">
+            <div className="flex flex-col items-center text-center">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                <Upload className="h-8 w-8 text-primary" />
+              </div>
+              <div className="text-3xl font-bold text-primary mb-2">1</div>
+              <h3 className="text-xl font-semibold text-foreground mb-2">Upload Your Image</h3>
+              <p className="text-muted-foreground">
+                Choose your favorite photo or design. We support JPG, PNG, and HEIC formats.
+              </p>
+            </div>
+            <div className="flex flex-col items-center text-center">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                <Palette className="h-8 w-8 text-primary" />
+              </div>
+              <div className="text-3xl font-bold text-primary mb-2">2</div>
+              <h3 className="text-xl font-semibold text-foreground mb-2">Customize Your Case</h3>
+              <p className="text-muted-foreground">
+                Select your phone model, case color, and preview your design in real-time.
+              </p>
+            </div>
+            <div className="flex flex-col items-center text-center">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                <Smartphone className="h-8 w-8 text-primary" />
+              </div>
+              <div className="text-3xl font-bold text-primary mb-2">3</div>
+              <h3 className="text-xl font-semibold text-foreground mb-2">Order & Receive</h3>
+              <p className="text-muted-foreground">
+                Complete your order and receive your custom case within 5-7 business days.
+              </p>
             </div>
           </div>
         </MaxWidthWrapper>
@@ -145,6 +191,76 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Features Section */}
+      <section className="dark:bg-[#171412] py-24">
+        <MaxWidthWrapper>
+          <div className="mx-auto max-w-2xl text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
+              Why Choose <span className="bg-primary px-2 text-primary-foreground">CasePython</span>
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Premium quality and exceptional service for your custom phone case needs
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto px-6">
+            <div className="rounded-lg border border-border bg-card p-6 hover:shadow-lg transition-shadow">
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                <Shield className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold text-foreground mb-2">Premium Protection</h3>
+              <p className="text-muted-foreground">
+                High-quality silicone material with scratch-resistant coating protects your device from everyday wear.
+              </p>
+            </div>
+            <div className="rounded-lg border border-border bg-card p-6 hover:shadow-lg transition-shadow">
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                <Award className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold text-foreground mb-2">5 Year Warranty</h3>
+              <p className="text-muted-foreground">
+                Our comprehensive print guarantee ensures your image stays vibrant for years to come.
+              </p>
+            </div>
+            <div className="rounded-lg border border-border bg-card p-6 hover:shadow-lg transition-shadow">
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                <Zap className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold text-foreground mb-2">Wireless Charging</h3>
+              <p className="text-muted-foreground">
+                Fully compatible with wireless charging technology - no need to remove your case.
+              </p>
+            </div>
+            <div className="rounded-lg border border-border bg-card p-6 hover:shadow-lg transition-shadow">
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                <Palette className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold text-foreground mb-2">Vibrant Printing</h3>
+              <p className="text-muted-foreground">
+                State-of-the-art printing technology ensures crisp, clear images that last.
+              </p>
+            </div>
+            <div className="rounded-lg border border-border bg-card p-6 hover:shadow-lg transition-shadow">
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                <Smartphone className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold text-foreground mb-2">Multiple Models</h3>
+              <p className="text-muted-foreground">
+                Support for iPhone 12, 13, 14, and 15 models with more coming soon.
+              </p>
+            </div>
+            <div className="rounded-lg border border-border bg-card p-6 hover:shadow-lg transition-shadow">
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                <Check className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold text-foreground mb-2">Easy Process</h3>
+              <p className="text-muted-foreground">
+                Simple three-step process from upload to delivery. Create your case in minutes.
+              </p>
+            </div>
+          </div>
+        </MaxWidthWrapper>
+      </section>
+
       <section className="dark:bg-[#171412]">
         <MaxWidthWrapper className="py-24">
           <div className="mb-12 px-6 lg:px-8">
@@ -197,6 +313,178 @@ export default function Home() {
               </Link>
             </div>
           </ul>
+        </MaxWidthWrapper>
+      </section>
+
+      {/* Supported Models Section */}
+      <section className="bg-[#F1F5F9] dark:bg-[#191817] py-24">
+        <MaxWidthWrapper>
+          <div className="mx-auto max-w-2xl text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
+              Supported <span className="bg-primary px-2 text-primary-foreground">Models</span>
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              We support a wide range of modern iPhone models
+            </p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto px-6">
+            <div className="rounded-lg border border-border bg-card p-6 text-center hover:shadow-lg transition-shadow">
+              <Smartphone className="h-12 w-12 text-primary mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-foreground mb-2">iPhone 15</h3>
+              <p className="text-sm text-muted-foreground">Latest model</p>
+            </div>
+            <div className="rounded-lg border border-border bg-card p-6 text-center hover:shadow-lg transition-shadow">
+              <Smartphone className="h-12 w-12 text-primary mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-foreground mb-2">iPhone 14</h3>
+              <p className="text-sm text-muted-foreground">Popular choice</p>
+            </div>
+            <div className="rounded-lg border border-border bg-card p-6 text-center hover:shadow-lg transition-shadow">
+              <Smartphone className="h-12 w-12 text-primary mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-foreground mb-2">iPhone 13</h3>
+              <p className="text-sm text-muted-foreground">Widely used</p>
+            </div>
+            <div className="rounded-lg border border-border bg-card p-6 text-center hover:shadow-lg transition-shadow">
+              <Smartphone className="h-12 w-12 text-primary mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-foreground mb-2">iPhone 12</h3>
+              <p className="text-sm text-muted-foreground">Still supported</p>
+            </div>
+          </div>
+          <div className="text-center mt-8">
+            <p className="text-muted-foreground mb-4">
+              More models coming soon! Have a different device? <Link href="/contact" className="text-primary hover:underline">Contact us</Link>
+            </p>
+          </div>
+        </MaxWidthWrapper>
+      </section>
+
+      {/* Trust & Security Section */}
+      <section className="dark:bg-[#171412] py-24">
+        <MaxWidthWrapper>
+          <div className="mx-auto max-w-2xl text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
+              Shop with <span className="bg-primary px-2 text-primary-foreground">Confidence</span>
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Your security and satisfaction are our top priorities
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto px-6">
+            <div className="rounded-lg border border-border bg-card p-6 text-center">
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <Lock className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-lg font-semibold text-foreground mb-2">Secure Payment</h3>
+              <p className="text-sm text-muted-foreground">
+                All transactions are encrypted and secure. We accept all major payment methods.
+              </p>
+            </div>
+            <div className="rounded-lg border border-border bg-card p-6 text-center">
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <Truck className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-lg font-semibold text-foreground mb-2">Fast Shipping</h3>
+              <p className="text-sm text-muted-foreground">
+                Orders processed within 2-3 business days. Most orders arrive within 5-7 days.
+              </p>
+            </div>
+            <div className="rounded-lg border border-border bg-card p-6 text-center">
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <Shield className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-lg font-semibold text-foreground mb-2">Satisfaction Guarantee</h3>
+              <p className="text-sm text-muted-foreground">
+                30-day satisfaction guarantee. Not happy? Contact us and we'll make it right.
+              </p>
+            </div>
+            <div className="rounded-lg border border-border bg-card p-6 text-center">
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <Clock className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-lg font-semibold text-foreground mb-2">24/7 Support</h3>
+              <p className="text-sm text-muted-foreground">
+                Our support team is here to help. Get assistance anytime through your dashboard.
+              </p>
+            </div>
+          </div>
+        </MaxWidthWrapper>
+      </section>
+
+      {/* FAQ Preview Section */}
+      <section className="bg-[#F1F5F9] dark:bg-[#191817] py-24">
+        <MaxWidthWrapper>
+          <div className="mx-auto max-w-2xl text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
+              Frequently Asked <span className="bg-primary px-2 text-primary-foreground">Questions</span>
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Quick answers to common questions about our custom phone cases
+            </p>
+          </div>
+          <div className="max-w-3xl mx-auto px-6 space-y-4">
+            <div className="rounded-lg border border-border bg-card p-6">
+              <div className="flex items-start gap-4">
+                <HelpCircle className="h-6 w-6 text-primary shrink-0 mt-1" />
+                <div>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">
+                    How long does shipping take?
+                  </h3>
+                  <p className="text-muted-foreground">
+                    Orders are typically processed within 2-3 business days and arrive within 5-7 business days after shipping.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="rounded-lg border border-border bg-card p-6">
+              <div className="flex items-start gap-4">
+                <HelpCircle className="h-6 w-6 text-primary shrink-0 mt-1" />
+                <div>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">
+                    Will the image fade over time?
+                  </h3>
+                  <p className="text-muted-foreground">
+                    We use state-of-the-art printing technology with a 5-year print guarantee. If your image fades due to manufacturing defects, we'll replace it free of charge.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="rounded-lg border border-border bg-card p-6">
+              <div className="flex items-start gap-4">
+                <HelpCircle className="h-6 w-6 text-primary shrink-0 mt-1" />
+                <div>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">
+                    Are the cases compatible with wireless charging?
+                  </h3>
+                  <p className="text-muted-foreground">
+                    Yes! Our cases are fully compatible with wireless charging technology. You won't need to remove your case when charging wirelessly.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="rounded-lg border border-border bg-card p-6">
+              <div className="flex items-start gap-4">
+                <HelpCircle className="h-6 w-6 text-primary shrink-0 mt-1" />
+                <div>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">
+                    What image formats do you accept?
+                  </h3>
+                  <p className="text-muted-foreground">
+                    We accept JPG, PNG, and HEIC formats. For best results, use high-resolution images (at least 2000x2000 pixels).
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="text-center mt-12">
+            <Link
+              href="/faq"
+              className={buttonVariants({
+                variant: "outline",
+                size: "lg",
+              })}
+            >
+              View All FAQs <ArrowRight className="h-4 w-4 ml-2" />
+            </Link>
+          </div>
         </MaxWidthWrapper>
       </section>
 

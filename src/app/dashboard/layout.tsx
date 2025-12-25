@@ -1,5 +1,5 @@
 import { currentUser } from "@clerk/nextjs/server"
-import { notFound } from "next/navigation"
+import { redirect } from "next/navigation"
 import { Sidebar } from "@/components/Sidebar"
 
 export default async function DashboardLayout({
@@ -10,14 +10,14 @@ export default async function DashboardLayout({
   const user = await currentUser()
 
   if (!user?.id) {
-    return notFound()
+    redirect('/sign-in?redirect=/dashboard')
   }
 
   const ADMIN_EMAIL = process.env.ADMIN_EMAIL
 
   // Prevent admins from accessing the dashboard
   if (user.primaryEmailAddress?.emailAddress === ADMIN_EMAIL) {
-    return notFound()
+    redirect('/admin')
   }
 
   return (

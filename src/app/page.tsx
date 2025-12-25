@@ -66,7 +66,8 @@ export default function Home() {
           </div>
           <div className="col-span-full lg:col-span-1 w-full flex justify-center px-8 sm:px-16 md:px-0 mt-32 lg:mx-0 lg:mt-20 xl:mt-16 2xl:mt-20 h-fit">
             <div className="relative md:max-w-xl">
-              <img src="/your-image.png" className="absolute w-40 lg:w-52 xl:w-44 2xl:w-52 left-56 xl:left-44 2xl:left-56 -top-20 xl:-top-16 2xl:-top-20 select-none hidden sm:block lg:hidden xl:block transition-opacity duration-300 ease-in-out" alt="" />
+              <img src="/your-image.png" className="absolute w-40 lg:w-52 xl:w-44 2xl:w-52 left-56 xl:left-44 2xl:left-56 -top-20 xl:-top-16 2xl:-top-20 select-none hidden sm:block lg:hidden xl:block dark:hidden transition-opacity duration-300 ease-in-out" alt="" />
+              <img src="/your-image-dark.png" className="absolute w-40 lg:w-52 xl:w-44 2xl:w-52 left-56 xl:left-44 2xl:left-56 -top-20 xl:-top-16 2xl:-top-20 select-none hidden sm:dark:block lg:hidden xl:dark:block transition-opacity duration-300 ease-in-out" alt="" />
               <img src="/line.png" className="absolute w-20 -left-6 -bottom-6 select-none transition-opacity duration-300 ease-in-out" alt="" />
               <PhoneD className="w-64 xl:w-56 2xl:w-64" imgSrc="https://anuzia5kxh.ufs.sh/f/wl7CbeyNKgIu0y5Ptjz5x4Xe7T2MzawWQZA3Vg1SDnlhb9id" />
             </div>

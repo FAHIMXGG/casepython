@@ -113,7 +113,7 @@ function ReviewGrid() {
     const column3 = splitArray(columns[2], 2)
 
 
-    return <div ref={containerRef} className='relative -mx-4 mt-16 grid h-[49rem] max-h-[150vh] grid-cols-1 items-start gap-8 overflow-hidden px-4 sm:mt-20 md:grid-cols-2 lg:grid-cols-3'>
+    return <div ref={containerRef} className='relative mt-16 grid h-[49rem] max-h-[150vh] grid-cols-1 items-start gap-8 overflow-hidden px-4 max-w-full sm:mt-20 sm:-mx-4 sm:px-4 sm:max-w-none md:grid-cols-2 lg:grid-cols-3'>
         {
             isInView ? (<>
                 <ReviewColumn
@@ -141,20 +141,26 @@ function ReviewGrid() {
                 />
 
             </>) : null}
-            <div className='pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-slate-100  to-transparent dark:from-[#191817] dark:via-[#191817]/60 dark:to-transparent transition-colors duration-300'></div>
-            <div className='pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-slate-100  to-transparent dark:from-[#191817] dark:via-[#191817]/60 dark:to-transparent transition-colors duration-300'></div>
+            <div className='pointer-events-none absolute inset-x-0 -top-24 h-48 bg-gradient-to-b from-slate-100  to-transparent dark:from-[#191817] dark:via-[#191817]/60 dark:to-transparent transition-colors duration-300 sm:-top-12 sm:h-40 md:-top-4 md:h-32 lg:top-0'></div>
+            <div className='pointer-events-none absolute inset-x-0 -bottom-24 h-48 bg-gradient-to-t from-slate-100  to-transparent dark:from-[#191817] dark:via-[#191817]/60 dark:to-transparent transition-colors duration-300 sm:-bottom-12 sm:h-40 md:-bottom-4 md:h-32 lg:bottom-0'></div>
     </div>
 }
 
 const Reviews = () => {
     return (
-        <div>
-            <MaxWidthWrapper className='relative max-w-5xl'>
+        <div className="w-full overflow-x-clip">
+            <MaxWidthWrapper className='relative max-w-5xl overflow-hidden xl:overflow-visible'>
                 <img
                     aria-hidden='true'
                     src="/what-people-are-buying.png"
                     alt=""
-                    className='absolute select-none hidden xl:block -left-32 top-1/3 transition-opacity duration-300 ease-in-out'
+                    className='absolute select-none hidden xl:block dark:hidden -left-32 top-1/3 transition-opacity duration-300 ease-in-out pointer-events-none'
+                />
+                <img
+                    aria-hidden='true'
+                    src="/what-people-are-buying-dark.png"
+                    alt=""
+                    className='absolute select-none hidden xl:dark:block -left-32 top-1/3 transition-opacity duration-300 ease-in-out pointer-events-none'
                 />
                 <ReviewGrid />
             </MaxWidthWrapper>
